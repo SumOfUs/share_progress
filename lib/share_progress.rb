@@ -1,5 +1,5 @@
 require "share_progress/version"
-require "share_progress/button"
+require "share_progress/button_client"
 require 'httparty'
 
 module ShareProgress
