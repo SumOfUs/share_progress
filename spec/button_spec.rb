@@ -7,7 +7,7 @@ describe ShareProgress::Button do
   let(:fake_key) { 'A Fake Key' }
   let(:base_params) { { key: ENV['SHARE_PROGRESS_API_KEY'] } }
   let(:base_uri) { ShareProgress::Client::base_uri }
-  let(:id) { 25 }
+  let(:id) { 15246 }
 
   describe 'all' do
 
@@ -38,10 +38,14 @@ describe ShareProgress::Button do
       end
     end
 
-    describe 'receiving data' do
+    describe 'receiving data', :vcr do
 
-      it 'gets empty JSON when none created', :vcr do
-        expect(ShareProgress::Button.all).to eq Hash.new
+      it 'receives an array of Button instances', :vcr do
+        result = ShareProgress::Button.all
+        expect(result).to be_instance_of Array
+        result.each do |button|
+          expect(button).to be_instance_of ShareProgress::Button
+        end
       end
 
     end
@@ -51,16 +55,28 @@ describe ShareProgress::Button do
 
     let(:uri) { base_uri + '/buttons/read' }
 
-    it 'requests the read action with an id' do
-      params = base_params.merge({id: id})
-      stub_request(:get, uri).with(query: params)
-      ShareProgress::Button.find(id)
-      expect(WebMock).to have_requested(:get, uri).with(query: params)
+    describe 'making requests' do
+
+      it 'requests the read action with an id' do
+        params = base_params.merge({id: id})
+        stub_request(:get, uri).with(query: params)
+        expect{ ShareProgress::Button.find(id) }.to raise_error # record not found error
+        expect(WebMock).to have_requested(:get, uri).with(query: params)
+      end
+
+      it 'raises an error without an id' do
+        expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+      end
     end
 
-    it 'raises an error without an id' do
-      expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+    describe 'receiving data', :vcr do
+
+      it 'returns an instance of button' do
+        expect(ShareProgress::Button.find(id)).to be_instance_of ShareProgress::Button
+      end
+
     end
+
   end
 
   describe 'destroy' do

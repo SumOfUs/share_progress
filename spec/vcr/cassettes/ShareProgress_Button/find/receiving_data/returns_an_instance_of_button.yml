@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://run.shareprogress.org/api/v1/buttons/read?id=15246&key=<API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - close
+      Date:
+      - Mon, 24 Aug 2015 21:39:37 GMT
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Ua-Compatible:
+      - chrome=1
+      X-Ratelimit-Limit:
+      - '30'
+      X-Ratelimit-Remaining:
+      - '29'
+      X-Ratelimit-Reset:
+      - '1440452437'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - '"e1da045095e90193a54e28ec9d8cd753"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 43c7a616-7ecb-40db-a63c-3231536d0450
+      X-Runtime:
+      - '0.052461'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"response":[{"id":15246,"page_url":"http://www.callforthereef.org/?sub=tw","page_title":"Call
+        Hunt Twitter button ","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15246 sp_tw_large'' \u003E\u003C/div\u003E","found_snippet":true,"is_active":false,"variants":{"facebook":[{"id":62899,"facebook_title":null,"facebook_description":null,"facebook_thumbnail":null}],"email":[{"id":62898,"email_subject":null,"email_body":null}],"twitter":[{"id":62897,"twitter_message":"I
+        just called @GregHuntMP to tell him to not re-approve a mine that would ruin
+        the Great Barrier Reef {LINK} @sumofus"}]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":null}'
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 21:40:12 GMT
+recorded_with: VCR 2.9.3
