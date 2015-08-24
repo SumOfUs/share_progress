@@ -7,6 +7,7 @@ describe ShareProgress::Button do
   let(:fake_key) { 'A Fake Key' }
   let(:base_params) { { api_key: ENV['API_KEY'] } }
   let(:base_uri) { ShareProgress::Client::base_uri }
+  let(:id) { 25 }
 
   describe 'all' do
 
@@ -40,7 +41,6 @@ describe ShareProgress::Button do
     let(:uri) { base_uri + '/buttons/read' }
 
     it 'requests the read action with an id' do
-      id = 25
       params = base_params.merge({id: id})
       stub_request(:get, uri).with(query: params)
       ShareProgress::Button.find(id)
@@ -49,6 +49,22 @@ describe ShareProgress::Button do
 
     it 'raises an error without an id' do
       expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+    end
+  end
+
+  describe 'destroy' do
+
+    let(:uri) { base_uri + '/buttons/delete' }
+
+    it 'posts to the delete action with an id' do
+      params = base_params.merge({id: id})
+      stub_request(:post, uri).with(query: params)
+      ShareProgress::Button.destroy(id)
+      expect(WebMock).to have_requested(:post, uri).with(query: params)
+    end
+
+    it 'raises an error without an id' do
+      expect{ ShareProgress::Button.destroy() }.to raise_error(ArgumentError)
     end
   end
 end

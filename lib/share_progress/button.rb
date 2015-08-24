@@ -15,7 +15,7 @@ module ShareProgress
     end
 
     def self.destroy(id)
-      Client.get endpoint('delete'), { id: id }
+      Client.post endpoint('delete'), { query: { id: id } }
     end
 
     def self.all(options={})
