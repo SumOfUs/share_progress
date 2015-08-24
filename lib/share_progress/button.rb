@@ -5,7 +5,7 @@ module ShareProgress
   class Button
 
     class << self
-      def new
+      def create
       end
 
       def update
