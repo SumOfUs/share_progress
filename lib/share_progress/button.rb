@@ -11,7 +11,7 @@ module ShareProgress
     end
 
     def self.find(id)
-      Client.get endpoint('read'), { id: id }
+      Client.get endpoint('read'), { query: { id: id } }
     end
 
     def self.destroy(id)

@@ -34,4 +34,21 @@ describe ShareProgress::Button do
       @request_params = {}
     end
   end
+
+  describe 'find' do
+
+    let(:uri) { base_uri + '/buttons/read' }
+
+    it 'requests the read action with an id' do
+      id = 25
+      params = base_params.merge({id: id})
+      stub_request(:get, uri).with(query: params)
+      ShareProgress::Button.find(id)
+      expect(WebMock).to have_requested(:get, uri).with(query: params)
+    end
+
+    it 'raises an error without an id' do
+      expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+    end
+  end
 end
