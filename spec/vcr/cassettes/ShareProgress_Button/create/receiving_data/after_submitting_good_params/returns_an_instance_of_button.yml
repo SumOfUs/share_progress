@@ -5,7 +5,7 @@ http_interactions:
     uri: http://run.shareprogress.org/api/v1/buttons/update?key=<API_KEY>
     body:
       encoding: UTF-8
-      string: page_url=http%3A%2F%2Fact.sumofus.org%2Fsign%2FWhat_Fast_Track_Means_infographic%2F&button_template=sp_fb_large
+      string: advanced_options=&page_url=http%3A%2F%2Fact.sumofus.org%2Fsign%2FWhat_Fast_Track_Means_infographic%2F&button_template=sp_fb_large
     headers: {}
   response:
     status:
@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Mon, 24 Aug 2015 22:53:45 GMT
+      - Mon, 24 Aug 2015 23:42:59 GMT
       Status:
       - 200 OK
       X-Frame-Options:
@@ -31,26 +31,26 @@ http_interactions:
       X-Ratelimit-Limit:
       - '30'
       X-Ratelimit-Remaining:
-      - '29'
+      - '27'
       X-Ratelimit-Reset:
-      - '1440456884'
+      - '1440459836'
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - '"b2eb5ac23b49dbbc1eb8de3071e4a520"'
+      - '"e7e834de0ee2411fc565effd62e9d775"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 74742afe-1628-481a-ac60-df15622d2202
+      - 013797a5-7641-4fa5-9aed-b282a97c0609
       X-Runtime:
-      - '1.420478'
+      - '1.209175'
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
-      string: '{"success":true,"response":[{"id":15380,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
+      string: '{"success":true,"response":[{"id":15382,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
         Fast Track Means | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
-        class=''sp_15380 sp_fb_large'' \u003E\u003C/div\u003E","found_snippet":true,"is_active":false,"variants":{"facebook":[],"email":[],"twitter":[]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":null}'
+        class=''sp_15382 sp_fb_large'' \u003E\u003C/div\u003E","found_snippet":true,"is_active":false,"variants":{"facebook":[],"email":[],"twitter":[]},"advanced_options":{"automatic_traffic_routing":null,"buttons_optimize_actions":null,"customize_params":null,"id_pass":null}}],"message":null}'
     http_version: 
-  recorded_at: Mon, 24 Aug 2015 22:54:19 GMT
+  recorded_at: Mon, 24 Aug 2015 23:43:34 GMT
 recorded_with: VCR 2.9.3

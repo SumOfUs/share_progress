@@ -86,8 +86,17 @@ describe ShareProgress::Button do
 
     describe 'receiving data', :vcr do
 
-      it 'returns an instance of button' do
-        expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
+      describe 'after submitting good params' do
+        it 'returns an instance of button' do
+          expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
+        end
+      end
+
+      describe 'after submitting bad params' do
+
+        it 'returns nil' do
+          expect(ShareProgress::Button.create(nil, nil)).to eq nil
+        end
       end
 
     end

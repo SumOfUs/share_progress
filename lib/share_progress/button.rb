@@ -9,7 +9,8 @@ module ShareProgress
     class << self
 
       def create(page_url, button_template, raw_options={})
-        new_from_fields(update(nil, page_url, button_template, raw_options))
+        created = update(nil, page_url, button_template, raw_options)
+        created.nil? ? nil : new_from_fields(created)
       end
 
       # this method is used by instance.save and Button.create
