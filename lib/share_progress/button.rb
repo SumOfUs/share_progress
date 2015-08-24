@@ -20,7 +20,7 @@ module ShareProgress
 
     def self.all(options={})
       acceptable = [:offset, :limit]
-      Client.get endpoint, { query: stringify_keys(filter_keys(options, acceptable)) }
+      Client.get endpoint, { query: filter_keys(options, acceptable) }
     end
 
     private
@@ -32,12 +32,6 @@ module ShareProgress
 
     def self.filter_keys(params, acceptable)
       params.select{ |key, _| acceptable.include? key }
-    end
-
-    def self.stringify_keys(h)
-      n = {}
-      h.each_pair { |k, v| n[k.to_s] = v}
-      n
     end
 
   end
