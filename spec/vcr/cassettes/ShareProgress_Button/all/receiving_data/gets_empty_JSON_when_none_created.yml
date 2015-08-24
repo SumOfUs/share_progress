@@ -1,0 +1,154 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://run.shareprogress.org/api/v1/buttons?key=<API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - close
+      Date:
+      - Mon, 24 Aug 2015 19:56:20 GMT
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Ua-Compatible:
+      - chrome=1
+      X-Ratelimit-Limit:
+      - '30'
+      X-Ratelimit-Remaining:
+      - '29'
+      X-Ratelimit-Reset:
+      - '1440446240'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - '"232bbb0882e8f76b77cfde02868d3b93"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 0ab45075-aa2d-41b1-906c-5cbf7f864f52
+      X-Runtime:
+      - '0.158713'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"response":[{"id":15246,"page_url":"http://www.callforthereef.org/?sub=tw","page_title":"Call
+        Hunt Twitter button ","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15246 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15245,"page_url":"http://www.callforthereef.org/?sub=fb","page_title":"Call
+        Hunt FB share example","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15245 sp_fb_large'' \u003E\u003C/div\u003E","is_active":true},{"id":15242,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15242 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15241,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15241 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15240,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15240 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15239,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15239 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15238,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_15238 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15237,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_15237 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15236,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw_","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15236 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15235,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw_","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15235 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15234,"page_url":"http://act.sumofus.org/sign/starbucks_deforestation_video_gw_","page_title":"Share
+        this video with your friends | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_15234 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15233,"page_url":"http://act.sumofus.org/sign/starbucks_video_gw","page_title":"Starbucks
+        Video GW | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15233 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15232,"page_url":"http://act.sumofus.org/sign/starbucks_video_gw","page_title":"Starbucks
+        Video GW | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15232 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15231,"page_url":"http://act.sumofus.org/sign/starbucks_video_gw","page_title":"Starbucks
+        Video GW | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_15231 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15142,"page_url":"http://act.sumofus.org/sign/seaworld_orcas_share","page_title":"This
+        is how SeaWorld is torturing Orcas | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15142 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15141,"page_url":"http://act.sumofus.org/sign/seaworld_orcas_share","page_title":"This
+        is how SeaWorld is torturing Orcas | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_15141 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":15140,"page_url":"http://act.sumofus.org/sign/seaworld_orcas_share","page_title":"This
+        is how SeaWorld is torturing Orcas | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_15140 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14944,"page_url":"http://act.sumofus.org/sign/ttip_picture_ginworthy","page_title":"TTIP
+        Picture | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14944 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14943,"page_url":"http://act.sumofus.org/sign/ttip_picture_ginworthy","page_title":"TTIP
+        Picture | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14943 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14942,"page_url":"http://act.sumofus.org/sign/ttip_picture_ginworthy","page_title":"TTIP
+        Picture | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14942 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14385,"page_url":"http://act.sumofus.org/sign/stw_zstar_test","page_title":"Z-Star
+        is testing \"A Cheesy Love Story\"! | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14385 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14384,"page_url":"http://act.sumofus.org/sign/stw_zstar_test","page_title":"Z-Star
+        is testing \"A Cheesy Love Story\"! | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14384 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14383,"page_url":"http://act.sumofus.org/sign/stw_zstar_test","page_title":"Z-Star
+        is testing \"A Cheesy Love Story\"! | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14383 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14380,"page_url":"http://act.sumofus.org/sign/stw_taratest_test","page_title":"SpreadTheWord
+        Tara Test 1 | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14380 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14379,"page_url":"http://act.sumofus.org/sign/stw_taratest_test","page_title":"SpreadTheWord
+        Tara Test 1 | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14379 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14378,"page_url":"http://act.sumofus.org/sign/stw_taratest_test","page_title":"SpreadTheWord
+        Tara Test 1 | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14378 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14110,"page_url":"http://act.sumofus.org/sign/sp-stw-test-cel","page_title":"SP
+        Spread The Word Test [CEL] | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14110 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14109,"page_url":"http://act.sumofus.org/sign/sp-stw-test-cel","page_title":"SP
+        Spread The Word Test [CEL] | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14109 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14108,"page_url":"http://act.sumofus.org/sign/sp-stw-test-cel","page_title":"SP
+        Spread The Word Test [CEL] | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14108 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14069,"page_url":"http://act.sumofus.org/sign/sp_test2_cel","page_title":"SP
+        Test 2 [CEL] | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14069 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14068,"page_url":"http://act.sumofus.org/sign/sp_test2_cel","page_title":"SP
+        Test 2 [CEL] | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14068 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14067,"page_url":"http://act.sumofus.org/sign/sp_test2_cel","page_title":"SP
+        Test 2 [CEL] | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14067 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14044,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14044 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14043,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14043 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14042,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14042 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14041,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14041 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14040,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14040 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14039,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14039 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14005,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy/","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14005 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14004,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy/","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14004 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14003,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy/","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14003 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14002,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_14002 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14001,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_14001 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":14000,"page_url":"http://act.sumofus.org/sign/stw_1column_test_copy","page_title":"SpreadTheWord
+        Single Column Sample | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_14000 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13988,"page_url":"http://act.sumofus.org/sign/stw_nestle_drought_report_back","page_title":"Nestle
+        Report Back | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_13988 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13987,"page_url":"http://act.sumofus.org/sign/stw_nestle_drought_report_back","page_title":"Nestle
+        Report Back | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_13987 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13986,"page_url":"http://act.sumofus.org/sign/stw_nestle_drought_report_back","page_title":"Nestle
+        Report Back | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_13986 sp_em_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13901,"page_url":"http://act.sumofus.org/sign/stw_default_test","page_title":"SpreadTheWord
+        Default Sample | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_13901 sp_fb_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13900,"page_url":"http://act.sumofus.org/sign/stw_default_test","page_title":"SpreadTheWord
+        Default Sample | SumOfUs.org","button_template":"sp_tw_large","share_button_html":"\u003Cdiv
+        class=''sp_13900 sp_tw_large'' \u003E\u003C/div\u003E","is_active":false},{"id":13899,"page_url":"http://act.sumofus.org/sign/stw_default_test","page_title":"SpreadTheWord
+        Default Sample | SumOfUs.org","button_template":"sp_em_large","share_button_html":"\u003Cdiv
+        class=''sp_13899 sp_em_large'' \u003E\u003C/div\u003E","is_active":false}],"message":null}'
+    http_version: 
+  recorded_at: Mon, 24 Aug 2015 19:56:54 GMT
+recorded_with: VCR 2.9.3
