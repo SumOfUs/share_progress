@@ -5,7 +5,7 @@ require 'share_progress'
 describe ShareProgress::Button do
 
   let(:fake_key) { 'A Fake Key' }
-  let(:base_params) { { api_key: ENV['API_KEY'] } }
+  let(:base_params) { { api_key: ENV['SHARE_PROGRESS_API_KEY'] } }
   let(:base_uri) { ShareProgress::Client::base_uri }
   let(:id) { 25 }
 
