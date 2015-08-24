@@ -79,6 +79,21 @@ describe ShareProgress::Button do
 
   end
 
+  describe 'create' do
+
+    let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
+    let(:button_template) { "sp_fb_large" }
+
+    describe 'receiving data', :vcr do
+
+      it 'returns an instance of button' do
+        expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
+      end
+
+    end
+
+  end
+
   describe 'destroy' do
 
     let(:uri) { base_uri + '/buttons/delete' }

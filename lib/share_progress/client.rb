@@ -10,7 +10,16 @@ module ShareProgress
     class << self
 
       def get(*args)
-        http_response = super(*args)
+        response_field(super(*args))
+      end
+
+      def post(*args)
+        response_field(super(*args))
+      end
+
+      private
+
+      def response_field(http_response)
         http_response['response'].nil? ? [] : http_response['response']
       end
 
