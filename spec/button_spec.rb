@@ -13,26 +13,37 @@ describe ShareProgress::Button do
 
     let(:uri) { base_uri + '/buttons' }
 
-    after :each do
-      params = base_params.merge(@request_params)
-      stub_request(:get, uri).with(query: params)
-      ShareProgress::Button.all(@method_params)
-      expect(WebMock).to have_requested(:get, uri).with(query: params)
+    describe 'making requests' do
+
+      after :each do
+        params = base_params.merge(@request_params)
+        stub_request(:get, uri).with(query: params)
+        ShareProgress::Button.all(@method_params)
+        expect(WebMock).to have_requested(:get, uri).with(query: params)
+      end
+
+      it 'requests the index action' do
+        @request_params = {}
+        @method_params  = {}
+      end
+
+      it 'requests the index action with limit and offset params' do
+        @method_params = {limit: 5, offset: 20}
+        @request_params = @method_params
+      end
+
+      it 'requests the index action without unknown params' do
+        @method_params = {fake_param: 10}
+        @request_params = {}
+      end
     end
 
-    it 'requests the index action' do
-      @request_params = {}
-      @method_params  = {}
-    end
+    describe 'receiving data' do
 
-    it 'requests the index action with limit and offset params' do
-      @method_params = {limit: 5, offset: 20}
-      @request_params = @method_params
-    end
+      it 'gets empty JSON when none created', :vcr do
+        expect(ShareProgress::Button.all).to eq Hash.new
+      end
 
-    it 'requests the index action without unknown params' do
-      @method_params = {fake_param: 10}
-      @request_params = {}
     end
   end
 
