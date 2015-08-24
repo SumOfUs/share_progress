@@ -54,8 +54,8 @@ module ShareProgress
       def new_from_fields(fields)
         new(fields['id'],
             fields['page_url'],
-            fields['page_title'],
             fields['button_template'],
+            fields['page_title'],
             fields['share_button_html'],
             fields['is_active'])
       end
@@ -69,13 +69,20 @@ module ShareProgress
       end
     end
 
-    def initialize(id, page_url, page_title, button_template, share_button_html, is_active)
+    def initialize(id, page_url, button_template, page_title, share_button_html, is_active)
       self.id = id
       self.page_url = page_url
-      self.page_title = page_title
       self.button_template = button_template
+      self.page_title = page_title
       self.share_button_html = share_button_html
       self.is_active = is_active
+    end
+
+    def save
+      other_fields = {page_title: page_title, share_button_html: share_button_html, is_active: is_active}
+      result = self.class.update(id, page_url, button_template, other_fields)
+      # need to update parameters based on result
+      (result.size > 0)
     end
 
   end
