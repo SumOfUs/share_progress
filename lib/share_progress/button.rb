@@ -74,8 +74,8 @@ module ShareProgress
     def save
       other_fields = {page_title: page_title, share_button_html: share_button_html, is_active: is_active}
       result = self.class.update(id, page_url, button_template, other_fields)
-      # need to update parameters based on result
-      (result.size > 0)
+      update_attributes(result)
+      (errors.size == 0)
     end
 
   end
