@@ -8,6 +8,43 @@ describe ShareProgress::Button do
   let(:base_params) { { key: ENV['SHARE_PROGRESS_API_KEY'] } }
   let(:base_uri) { ShareProgress::Client::base_uri }
   let(:id) { 15246 }
+  let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
+  let(:button_template) { "sp_fb_large" }
+
+  describe 'instance methods' do
+    let(:basic_button) { ShareProgress::Button.new({}) }
+    subject { basic_button }
+
+    it { should respond_to :page_url }
+    it { should respond_to :page_url= }
+    it { should respond_to :button_template }
+    it { should respond_to :button_template= }
+    it { should respond_to :page_title }
+    it { should respond_to :page_title= }
+    it { should respond_to :share_button_html }
+    it { should respond_to :share_button_html= }
+    it { should respond_to :is_active }
+    it { should respond_to :is_active= }
+    it { should respond_to :id }
+    it { should_not respond_to :id= }
+
+    it { should respond_to :update_attributes }
+    it { should respond_to :save }
+  end
+
+  describe 'class methods' do
+    subject { ShareProgress::Button }
+
+    it { should respond_to :all }
+    it { should respond_to :find }
+    it { should respond_to :destroy }
+    it { should respond_to :create }
+    it { should respond_to :update }
+    it { should_not respond_to :endpoint }
+    it { should_not respond_to :filter_keys }
+    it { should_not respond_to :optional_keys }
+    it { should_not respond_to :advanced_options_keys }
+  end
 
   describe 'all' do
 
@@ -80,9 +117,6 @@ describe ShareProgress::Button do
   end
 
   describe 'create' do
-
-    let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
-    let(:button_template) { "sp_fb_large" }
 
     describe 'receiving data', :vcr do
 
