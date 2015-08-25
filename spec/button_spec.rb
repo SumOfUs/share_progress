@@ -11,14 +11,15 @@ describe ShareProgress::Button do
 
   describe 'all' do
 
+    let(:index_base_params) { base_params.merge({limit: 100, offset: 0}) }
     let(:uri) { base_uri + '/buttons' }
 
     describe 'making requests' do
 
       after :each do
-        params = base_params.merge(@request_params)
+        params = index_base_params.merge(@request_params)
         stub_request(:get, uri).with(query: params)
-        ShareProgress::Button.all(@method_params)
+        ShareProgress::Button.all(**@method_params)
         expect(WebMock).to have_requested(:get, uri).with(query: params)
       end
 
@@ -31,11 +32,10 @@ describe ShareProgress::Button do
         @method_params = {limit: 5, offset: 20}
         @request_params = @method_params
       end
+    end
 
-      it 'requests the index action without unknown params' do
-        @method_params = {fake_param: 10}
-        @request_params = {}
-      end
+    it 'raises an error when passed a wrong param' do
+      expect{ ShareProgress::Button.all(fake_param: 10) }.to raise_error ArgumentError
     end
 
     describe 'receiving data', :vcr do

@@ -33,9 +33,8 @@ module ShareProgress
         Client.post endpoint('delete'), { query: { id: id } }
       end
 
-      def all(options={})
-        acceptable = [:offset, :limit]
-        matches = Client.get endpoint, { query: filter_keys(options, acceptable) }
+      def all(limit: 100, offset: 0)
+        matches = Client.get endpoint, { query: { limit: limit, offset: offset } }
         matches.map{ |match| new_from_fields(match) }
       end
 
