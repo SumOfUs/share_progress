@@ -65,12 +65,12 @@ module ShareProgress
     end
 
     def update_attributes(params)
-      @id = params[:id] if params.include? :id
-      self.page_url = params[:page_url] if params.include? :page_url
-      self.is_active = params[:is_active] if params.include? :is_active
-      self.page_title = params[:page_title] if params.include? :page_title
-      self.button_template = params[:button_template] if params.include? :button_template
-      self.share_button_html = params[:share_button_html] if params.include? :share_button_html
+      @id = params['id'] if params.include? 'id'
+      self.page_url = params['page_url'] if params.include? 'page_url'
+      self.is_active = params['is_active'] if params.include? 'is_active'
+      self.page_title = params['page_title'] if params.include? 'page_title'
+      self.button_template = params['button_template'] if params.include? 'button_template'
+      self.share_button_html = params['share_button_html'] if params.include? 'share_button_html'
     end
 
     def save
