@@ -37,25 +37,38 @@ describe ShareProgress::Button do
 
       let(:targets) { Hash.new }
 
-      it 'can update all base attributes to strings with string ' do
-        base_fields.each { |field| targets[field.to_s] = field.to_s }
-        basic_button.update_attributes(targets)
-        base_fields.each do |field|
-          expect(basic_button.send(field)).to eq targets[field.to_s]
-        end
-      end
+      [:to_s, :to_sym].each do |type|
 
-      it 'can update all base attributes to nil' do
-        base_fields.each { |field| targets[field.to_s] = nil }
-        basic_button.update_attributes(targets)
-        base_fields.each do |field|
-          expect(basic_button.send(field)).to eq nil
-        end
-      end
+        describe "with #{type == :to_s ? 'string' : 'symbol'} keys" do
 
-      it 'can update id' do
-        basic_button.update_attributes({'id' => 12345})
-        expect(basic_button.id).to eq 12345
+          describe 'can update all base attributes' do
+
+            before :each do
+              base_fields.each { |field| targets[field.send(type)] = field.to_s }
+              basic_button.update_attributes(targets)
+              targets.each_pair do |field, value|
+                expect(basic_button.send(field.to_sym)).to eq value
+              end
+            end
+
+            it 'to strings' do
+            end
+
+            # they need to be not nil first
+            it 'to nil' do
+              base_fields.each { |field| targets[field.send(type)] = nil }
+              basic_button.update_attributes(targets)
+              targets.each_pair do |field, value|
+                expect(basic_button.send(field.to_sym)).to eq nil
+              end
+            end
+          end
+
+          it 'can update id' do
+            basic_button.update_attributes({'id'.send(type) => 12345})
+            expect(basic_button.id).to eq 12345
+          end
+        end
       end
     end
 

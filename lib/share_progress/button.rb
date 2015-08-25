@@ -1,5 +1,6 @@
 require 'share_progress'
 require 'share_progress/client'
+require 'share_progress/utils'
 
 module ShareProgress
   class Button
@@ -16,8 +17,8 @@ module ShareProgress
 
       # this method is used by instance.save and Button.create
       def update(id, page_url, button_template, options={})
-        filter_keys(options, optional_keys)
-        filter_keys(options[:advanced_options], advanced_options_keys)
+        Utils.filter_keys(options, optional_keys)
+        Utils.filter_keys(options[:advanced_options], advanced_options_keys)
         options = options.merge({page_url: page_url, button_template: button_template})
         options[:id] = id unless id.nil? # without ID, update is create
         created = Client.post endpoint('update'), { body: options }
@@ -46,11 +47,6 @@ module ShareProgress
         "/buttons#{extension}"
       end
 
-      def filter_keys(params, acceptable)
-        return params if params.nil?
-        params.select!{ |key, _| acceptable.include? key }
-      end
-
       def optional_keys
         [:page_title, :auto_fill, :variations, :advanced_options]
       end
@@ -65,12 +61,13 @@ module ShareProgress
     end
 
     def update_attributes(params)
-      @id = params['id'] if params.include? 'id'
-      self.page_url = params['page_url'] if params.include? 'page_url'
-      self.is_active = params['is_active'] if params.include? 'is_active'
-      self.page_title = params['page_title'] if params.include? 'page_title'
-      self.button_template = params['button_template'] if params.include? 'button_template'
-      self.share_button_html = params['share_button_html'] if params.include? 'share_button_html'
+      params = Utils.symbolize_keys(params)
+      @id = params[:id] if params.include? :id
+      self.page_url = params[:page_url] if params.include? :page_url
+      self.is_active = params[:is_active] if params.include? :is_active
+      self.page_title = params[:page_title] if params.include? :page_title
+      self.button_template = params[:button_template] if params.include? :button_template
+      self.share_button_html = params[:share_button_html] if params.include? :share_button_html
     end
 
     def save
