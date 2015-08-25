@@ -77,14 +77,14 @@ describe ShareProgress::Button do
 
       describe 'receiving data', :vcr do
 
-        it 'receives an array of Button instances', :vcr do
+        it 'receives an array of Button instances with ids', :vcr do
           result = ShareProgress::Button.all
           expect(result).to be_instance_of Array
           result.each do |button|
             expect(button).to be_instance_of ShareProgress::Button
+            expect(button.id).not_to be_nil
           end
         end
-
       end
     end
 
@@ -102,7 +102,7 @@ describe ShareProgress::Button do
         end
 
         it 'raises an error without an id' do
-          expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+          expect{ ShareProgress::Button.find() }.to raise_error ArgumentError
         end
       end
 
@@ -123,6 +123,10 @@ describe ShareProgress::Button do
           end
         end
 
+        it 'raises an ArgumentError when there is no button with that id' do
+          expect{ ShareProgress::Button.find(999999999)}.to raise_error ArgumentError
+        end
+
       end
 
     end
@@ -132,13 +136,16 @@ describe ShareProgress::Button do
       describe 'receiving data', :vcr do
 
         describe 'after submitting good params' do
+
           it 'returns an instance of button' do
             expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
           end
 
-          it 'returns a button with the supplied params' do
+          it 'returns a button with the supplied params and an id' do
             button = ShareProgress::Button.create(page_url, button_template)
-            button
+            expect(button.page_url).to eq page_url
+            expect(button.button_template).to eq button_template
+            expect(button.id).to be > 0
           end
         end
 
