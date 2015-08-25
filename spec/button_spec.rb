@@ -133,6 +133,26 @@ describe ShareProgress::Button do
 
     describe 'create' do
 
+      describe 'making requests' do
+
+        let(:uri) { base_uri + '/buttons/update' }
+
+        it 'requests the update action with base parameters' do
+          params = base_params.merge({page_url: page_url, button_template: button_template})
+          stub_request(:post, uri)#.with(body: params)
+          ShareProgress::Button.create(page_url, button_template)
+          expect(WebMock).to have_requested(:post, uri).with(body: params)
+        end
+
+        it 'raises an agument error with only one arguemnt' do
+          expect{ ShareProgress::Button.create(page_url) }.to raise_error ArgumentError
+        end
+
+        it 'raises an agument error with zero arguemnts' do
+          expect{ ShareProgress::Button.create() }.to raise_error ArgumentError
+        end
+      end
+
       describe 'receiving data', :vcr do
 
         describe 'after submitting good params' do
