@@ -32,6 +32,33 @@ describe ShareProgress::Button do
 
     it { should respond_to :update_attributes }
     it { should respond_to :save }
+
+    describe 'update_attributes' do
+
+      let(:targets) { Hash.new }
+
+      it 'can update all base attributes to strings with string ' do
+        base_fields.each { |field| targets[field.to_s] = field.to_s }
+        basic_button.update_attributes(targets)
+        base_fields.each do |field|
+          expect(basic_button.send(field)).to eq targets[field.to_s]
+        end
+      end
+
+      it 'can update all base attributes to nil' do
+        base_fields.each { |field| targets[field.to_s] = nil }
+        basic_button.update_attributes(targets)
+        base_fields.each do |field|
+          expect(basic_button.send(field)).to eq nil
+        end
+      end
+
+      it 'can update id' do
+        basic_button.update_attributes({'id' => 12345})
+        expect(basic_button.id).to eq 12345
+      end
+    end
+
   end
 
   describe 'class methods' do
