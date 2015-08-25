@@ -4,13 +4,14 @@ require 'share_progress/client'
 module ShareProgress
   class Button
 
-    attr_accessor :id, :page_url, :page_title, :button_template, :share_button_html, :is_active
+    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active
+    attr_reader   :id
 
     class << self
 
       def create(page_url, button_template, raw_options={})
         created = update(nil, page_url, button_template, raw_options)
-        created.nil? ? nil : new_from_fields(created)
+        created.nil? ? nil : new(created)
       end
 
       # this method is used by instance.save and Button.create
@@ -26,7 +27,7 @@ module ShareProgress
       def find(id)
         matches = Client.get endpoint('read'), { query: { id: id } }
         raise ArgumentError.new("No button exists with id #{id}") if matches.size < 1
-        new_from_fields(matches[0])
+        new(matches[0])
       end
 
       def destroy(id)
@@ -35,7 +36,7 @@ module ShareProgress
 
       def all(limit: 100, offset: 0)
         matches = Client.get endpoint, { query: { limit: limit, offset: offset } }
-        matches.map{ |match| new_from_fields(match) }
+        matches.map{ |match| new(match) }
       end
 
       private
@@ -50,15 +51,6 @@ module ShareProgress
         params.select{ |key, _| acceptable.include? key }
       end
 
-      def new_from_fields(fields)
-        new(fields['id'],
-            fields['page_url'],
-            fields['button_template'],
-            fields['page_title'],
-            fields['share_button_html'],
-            fields['is_active'])
-      end
-
       def optional_keys
         [:page_title, :auto_fill, :variations, :advanced_options]
       end
@@ -68,13 +60,17 @@ module ShareProgress
       end
     end
 
-    def initialize(id, page_url, button_template, page_title, share_button_html, is_active)
-      self.id = id
-      self.page_url = page_url
-      self.button_template = button_template
-      self.page_title = page_title
-      self.share_button_html = share_button_html
-      self.is_active = is_active
+    def initialize(params)
+      update_attributes(params)
+    end
+
+    def update_attributes(params)
+      @id = params[:id] if params.include? :id
+      self.page_url = params[:page_url] if params.include? :page_url
+      self.is_active = params[:is_active] if params.include? :is_active
+      self.page_title = params[:page_title] if params.include? :page_title
+      self.button_template = params[:button_template] if params.include? :button_template
+      self.share_button_html = params[:share_button_html] if params.include? :share_button_html
     end
 
     def save
