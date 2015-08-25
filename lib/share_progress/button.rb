@@ -6,13 +6,13 @@ module ShareProgress
   class Button
 
     attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active
-    attr_reader   :id
+    attr_reader   :id, :errors
 
     class << self
 
       def create(page_url, button_template, raw_options={})
         created = update(nil, page_url, button_template, raw_options)
-        created.nil? ? nil : new(created)
+        created.nil? ? new({}) : new(created)
       end
 
       # this method is used by instance.save and Button.create
@@ -22,7 +22,7 @@ module ShareProgress
         options = options.merge({page_url: page_url, button_template: button_template})
         options[:id] = id unless id.nil? # without ID, update is create
         created = Client.post endpoint('update'), { body: options }
-        created[0]
+        created[0] # the API returns a list of length 1
       end
 
       def find(id)
@@ -63,6 +63,7 @@ module ShareProgress
     def update_attributes(params)
       params = Utils.symbolize_keys(params)
       @id = params[:id] if params.include? :id
+      @errors = params[:errors] if params.include? :errors
       self.page_url = params[:page_url] if params.include? :page_url
       self.is_active = params[:is_active] if params.include? :is_active
       self.page_title = params[:page_title] if params.include? :page_title

@@ -11,7 +11,7 @@ describe ShareProgress::Button do
   let(:id) { 15246 }
   let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
   let(:button_template) { "sp_fb_large" }
-  let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active] }
+  let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
 
   describe 'instance methods' do
     let(:basic_button) { ShareProgress::Button.new({}) }
@@ -29,6 +29,8 @@ describe ShareProgress::Button do
     it { should respond_to :is_active= }
     it { should respond_to :id }
     it { should_not respond_to :id= }
+    it { should respond_to :errors }
+    it { should_not respond_to :errors= }
 
     it { should respond_to :update_attributes }
     it { should respond_to :save }
@@ -209,12 +211,24 @@ describe ShareProgress::Button do
             expect(button.button_template).to eq button_template
             expect(button.id).to be > 0
           end
+
+          it 'has empty errors' do
+            button = ShareProgress::Button.create(page_url, button_template)
+            expect(button.errors).to eq Hash.new
+          end
+
         end
 
         describe 'after submitting bad params' do
 
-          it 'returns nil' do
-            expect(ShareProgress::Button.create(nil, nil)).to eq nil
+          it 'returns an instance of button' do
+            expect(ShareProgress::Button.create(nil, nil)).to be_instance_of ShareProgress::Button
+          end
+
+          it 'has appropriate errors' do
+            button = ShareProgress::Button.create(nil, nil)
+            expect( button.errors ).to be_instance_of Hash
+            expect( button.errors.keys ).to match_array ['page_url', 'button_template']
           end
         end
 

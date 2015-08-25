@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://run.shareprogress.org/api/v1/buttons/update?key=<API_KEY>
+    body:
+      encoding: UTF-8
+      string: page_url=&button_template=
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - close
+      Date:
+      - Tue, 25 Aug 2015 20:55:02 GMT
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Ua-Compatible:
+      - chrome=1
+      X-Ratelimit-Limit:
+      - '30'
+      X-Ratelimit-Remaining:
+      - '29'
+      X-Ratelimit-Reset:
+      - '1440536162'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - '"1ac95cf7eca69f4348c0dd34ff758df9"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 47adcd7d-30cc-4959-8f32-7d2b50486359
+      X-Runtime:
+      - '0.240864'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"response":[{"id":null,"page_url":"","page_title":null,"button_template":"","share_button_html":"\u003Cdiv
+        class=''sp_ '' \u003E\u003C/div\u003E","found_snippet":false,"is_active":false,"variants":{"facebook":[],"email":[],"twitter":[]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":{"page_url":["can''t
+        be blank"],"button_template":["is invalid"]}}'
+    http_version: 
+  recorded_at: Tue, 25 Aug 2015 20:55:38 GMT
+recorded_with: VCR 2.9.3
