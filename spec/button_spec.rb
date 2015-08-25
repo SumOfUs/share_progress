@@ -87,6 +87,16 @@ describe ShareProgress::Button do
         expect(basic_button.save).to eq false
       end
 
+      it 'gets rid of existing errors after successful save' do
+        basic_button.page_url = nil
+        basic_button.save
+        expect(basic_button.errors.size).to be > 0
+        basic_button.page_url = page_url
+        basic_button.button_template = button_template
+        basic_button.save
+        expect(basic_button.errors).to eq Hash.new
+      end
+
       it 'updates auto-populated fields on successful save' do
         expect(basic_button.page_title).to eq nil
         basic_button.page_url = page_url
