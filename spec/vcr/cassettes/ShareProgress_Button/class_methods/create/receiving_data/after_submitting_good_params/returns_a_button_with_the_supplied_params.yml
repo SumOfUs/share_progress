@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://run.shareprogress.org/api/v1/buttons/update?key=<API_KEY>
+    body:
+      encoding: UTF-8
+      string: advanced_options=&page_url=http%3A%2F%2Fact.sumofus.org%2Fsign%2FWhat_Fast_Track_Means_infographic%2F&button_template=sp_fb_large
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - close
+      Date:
+      - Tue, 25 Aug 2015 16:58:24 GMT
+      Status:
+      - 200 OK
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Ua-Compatible:
+      - chrome=1
+      X-Ratelimit-Limit:
+      - '30'
+      X-Ratelimit-Remaining:
+      - '27'
+      X-Ratelimit-Reset:
+      - '1440521953'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - '"1b4b21dc8c25cab78a5e1cbb0117ccad"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 5508634f-28f3-4c34-959d-0d6132402bd6
+      X-Runtime:
+      - '8.703512'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"success":true,"response":[{"id":15390,"page_url":"http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/","page_title":"What
+        Fast Track Means | SumOfUs.org","button_template":"sp_fb_large","share_button_html":"\u003Cdiv
+        class=''sp_15390 sp_fb_large'' \u003E\u003C/div\u003E","found_snippet":true,"is_active":false,"variants":{"facebook":[],"email":[],"twitter":[]},"advanced_options":{"automatic_traffic_routing":null,"buttons_optimize_actions":null,"customize_params":null,"id_pass":null}}],"message":null}'
+    http_version: 
+  recorded_at: Tue, 25 Aug 2015 16:58:59 GMT
+recorded_with: VCR 2.9.3
