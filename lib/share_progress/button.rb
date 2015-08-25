@@ -15,9 +15,9 @@ module ShareProgress
       end
 
       # this method is used by instance.save and Button.create
-      def update(id, page_url, button_template, raw_options={})
-        options = filter_keys(raw_options, optional_keys)
-        options[:advanced_options] = filter_keys(options[:advanced_options], advanced_options_keys)
+      def update(id, page_url, button_template, options={})
+        filter_keys(options, optional_keys)
+        filter_keys(options[:advanced_options], advanced_options_keys)
         options = options.merge({page_url: page_url, button_template: button_template})
         options[:id] = id unless id.nil? # without ID, update is create
         created = Client.post endpoint('update'), { body: options }
@@ -48,7 +48,7 @@ module ShareProgress
 
       def filter_keys(params, acceptable)
         return params if params.nil?
-        params.select{ |key, _| acceptable.include? key }
+        params.select!{ |key, _| acceptable.include? key }
       end
 
       def optional_keys

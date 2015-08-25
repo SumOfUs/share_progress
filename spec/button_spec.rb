@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'webmock/rspec'
 require 'share_progress'
+require 'httparty'
 
 describe ShareProgress::Button do
 
@@ -138,10 +139,11 @@ describe ShareProgress::Button do
         let(:uri) { base_uri + '/buttons/update' }
 
         it 'requests the update action with base parameters' do
-          params = base_params.merge({page_url: page_url, button_template: button_template})
-          stub_request(:post, uri)#.with(body: params)
+          body_params = HTTParty::HashConversions.to_params({page_url: page_url, button_template: button_template})
+          params = {query: base_params, body: body_params}
+          stub_request(:post, uri).with(params)
           ShareProgress::Button.create(page_url, button_template)
-          expect(WebMock).to have_requested(:post, uri).with(body: params)
+          expect(WebMock).to have_requested(:post, uri).with(params)
         end
 
         it 'raises an agument error with only one arguemnt' do

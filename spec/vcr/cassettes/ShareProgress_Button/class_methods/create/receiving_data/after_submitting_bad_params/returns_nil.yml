@@ -5,21 +5,21 @@ http_interactions:
     uri: http://run.shareprogress.org/api/v1/buttons/update?key=<API_KEY>
     body:
       encoding: UTF-8
-      string: advanced_options=&page_url=&button_template=
+      string: page_url=&button_template=
     headers: {}
   response:
     status:
-      code: 500
-      message: Internal Server Error
+      code: 200
+      message: OK
     headers:
       Server:
       - Cowboy
       Connection:
       - close
       Date:
-      - Tue, 25 Aug 2015 16:58:25 GMT
+      - Tue, 25 Aug 2015 20:05:28 GMT
       Status:
-      - 500 Internal Server Error
+      - 200 OK
       X-Frame-Options:
       - SAMEORIGIN
       X-Xss-Protection:
@@ -31,144 +31,26 @@ http_interactions:
       X-Ratelimit-Limit:
       - '30'
       X-Ratelimit-Remaining:
-      - '26'
+      - '29'
       X-Ratelimit-Reset:
-      - '1440521952'
+      - '1440533188'
       Content-Type:
-      - text/html; charset=utf-8
+      - application/json; charset=utf-8
+      Etag:
+      - '"1ac95cf7eca69f4348c0dd34ff758df9"'
       Cache-Control:
-      - no-cache
+      - max-age=0, private, must-revalidate
       X-Request-Id:
-      - a3983284-0deb-4616-adda-2f6026233fdb
+      - 37c33a1f-d785-44dc-bc56-c6e7be6aff4c
       X-Runtime:
-      - '0.403393'
+      - '0.152001'
       Via:
       - 1.1 vegur
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        PCFET0NUWVBFIGh0bWw+CjwhLS1baWYgbHQgSUUgN10+IDxodG1sIHhtbG5z
-        OmZiPSJodHRwOi8vb2dwLm1lL25zL2ZiIyIgbGFuZz0iZW4tdXMiIGNsYXNz
-        PSJpZTYgbHQtaWU5IiBkaXI9Imx0ciIgbGFuZz0iZW4tVVMiPiA8IVtlbmRp
-        Zl0tLT4KPCEtLVtpZiBJRSA3XT4gICAgPGh0bWwgeG1sbnM6ZmI9Imh0dHA6
-        Ly9vZ3AubWUvbnMvZmIjIiBsYW5nPSJlbi11cyIgY2xhc3M9ImllNyBsdC1p
-        ZTkiIGRpcj0ibHRyIiBsYW5nPSJlbi1VUyI+IDwhW2VuZGlmXS0tPgo8IS0t
-        W2lmIElFIDhdPiAgICA8aHRtbCB4bWxuczpmYj0iaHR0cDovL29ncC5tZS9u
-        cy9mYiMiIGxhbmc9ImVuLXVzIiBjbGFzcz0iaWU4IGx0LWllOSIgZGlyPSJs
-        dHIiIGxhbmc9ImVuLVVTIj4gPCFbZW5kaWZdLS0+CjwhLS1baWYgZ3QgSUUg
-        OF0+PCEtLT4gPGh0bWwgeG1sbnM6ZmI9Imh0dHA6Ly9vZ3AubWUvbnMvZmIj
-        IiBsYW5nPSJlbi11cyIgZGlyPSJsdHIiIGxhbmc9ImVuLVVTIj4gPCEtLTwh
-        W2VuZGlmXS0tPgoKPGhlYWQ+Cgo8bWV0YSBwcm9wZXJ0eT0ib2c6dGl0bGUi
-        IGNvbnRlbnQ9IlNoYXJlUHJvZ3Jlc3MiLz4KPG1ldGEgcHJvcGVydHk9Im9n
-        OnR5cGUiIGNvbnRlbnQ9IndlYnNpdGUiLz4KPG1ldGEgcHJvcGVydHk9Im9n
-        OnVybCIgY29udGVudD0iaHR0cDovL3d3dy5zaGFyZXByb2dyZXNzLm9yZy8i
-        Lz4KPG1ldGEgcHJvcGVydHk9Im9nOmltYWdlIiBjb250ZW50PSJodHRwOi8v
-        d3d3LnNoYXJlcHJvZ3Jlc3Mub3JnL2Fzc2V0cy9GQl90aHVtYl9zaGFyZV9w
-        cm9ncmVzc3MuanBnIi8+CjxtZXRhIHByb3BlcnR5PSJvZzpzaXRlX25hbWUi
-        IGNvbnRlbnQ9IlNoYXJlUHJvZ3Jlc3MiLz4KPG1ldGEgcHJvcGVydHk9ImZi
-        OmFkbWlucyIgY29udGVudD0iMzUwMDg1MSIvPgo8bWV0YSBwcm9wZXJ0eT0i
-        ZmI6cGFnZV9pZCIgY29udGVudD0iMzE3ODM1MzcxNjQ5NDUxIiAvPgo8bWV0
-        YSBwcm9wZXJ0eT0ib2c6ZGVzY3JpcHRpb24iIGNvbnRlbnQ9IlBvbGl0aWNh
-        bGx5LXByb2dyZXNzaXZlIHRlY2ggc3RhcnR1cCBvZmZlcmluZyBlYXN5LXRv
-        LXVzZSB0b29scyB0byBtYXhpbWl6ZSB5b3VyIG9ubGluZSB1c2VyIHNoYXJp
-        bmcuIi8+Cgo8bWV0YSBuYW1lPSJ0d2l0dGVyOmNhcmQiIGNvbnRlbnQ9InN1
-        bW1hcnkiPgo8bWV0YSBuYW1lPSJ0d2l0dGVyOnNpdGUiIGNvbnRlbnQ9IkBT
-        aGFyZVByb2dyZXNzIj4KCjxtZXRhIGl0ZW1wcm9wPSJuYW1lIiBjb250ZW50
-        PSJTaGFyZVByb2dyZXNzIj4KPG1ldGEgaXRlbXByb3A9ImRlc2NyaXB0aW9u
-        IiBjb250ZW50PSJQb2xpdGljYWxseS1wcm9ncmVzc2l2ZSB0ZWNoIHN0YXJ0
-        dXAgb2ZmZXJpbmcgZWFzeS10by11c2UgdG9vbHMgdG8gbWF4aW1pemUgeW91
-        ciBvbmxpbmUgdXNlciBzaGFyaW5nLiI+CjxtZXRhIGl0ZW1wcm9wPSJpbWFn
-        ZSIgY29udGVudD0iaHR0cDovL3d3dy5zaGFyZXByb2dyZXNzLm9yZy9hc3Nl
-        dHMvRkJfdGh1bWJfc2hhcmVfcHJvZ3Jlc3NzLmpwZyIgLz4KCjxtZXRhIG5h
-        bWU9ImRlc2NyaXB0aW9uIiBjb250ZW50PSJQb2xpdGljYWxseS1wcm9ncmVz
-        c2l2ZSB0ZWNoIHN0YXJ0dXAgb2ZmZXJpbmcgZWFzeS10by11c2UgdG9vbHMg
-        dG8gbWF4aW1pemUgeW91ciBvbmxpbmUgdXNlciBzaGFyaW5nLiI+Cgo8bGlu
-        ayByZWw9J2Nhbm9uaWNhbCcgaHJlZj0naHR0cDovL3d3dy5zaGFyZXByb2dy
-        ZXNzLm9yZy8nIC8+Cgo8bGluayByZWw9InNob3J0Y3V0IGljb24iIHR5cGU9
-        ImltYWdlL3gtaWNvbiIgaHJlZj0iL2Fzc2V0cy9mYXZpY29uX3NoYXJlX3By
-        b2dyZXNzLmljbyIgLz4KCjxsaW5rIGhyZWY9Ii9hc3NldHMvYXBwbGljYXRp
-        b24uY3NzIiBtZWRpYT0iYWxsIiByZWw9InN0eWxlc2hlZXQiIC8+CjxzY3Jp
-        cHQgc3JjPSIvYXNzZXRzL2FwcGxpY2F0aW9uLmpzIj48L3NjcmlwdD4KPG1l
-        dGEgY29udGVudD0iYXV0aGVudGljaXR5X3Rva2VuIiBuYW1lPSJjc3JmLXBh
-        cmFtIiAvPgo8bWV0YSBjb250ZW50PSJuUmRBVTBLUjROQ29vK1pOZTlYWWZs
-        N2J3MDNzSjhheW9XVHlZcU1uMVBjPSIgbmFtZT0iY3NyZi10b2tlbiIgLz4K
-        CjxtZXRhIG5hbWU9ImFwcGxlLW1vYmlsZS13ZWItYXBwLWNhcGFibGUiIGNv
-        bnRlbnQ9InllcyIgLz4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9
-        InVzZXItc2NhbGFibGU9bm8sIHdpZHRoPWRldmljZS13aWR0aCIgLz4KPG1l
-        dGEgbmFtZT0iZ29vZ2xlLXNpdGUtdmVyaWZpY2F0aW9uIiBjb250ZW50PSJk
-        SzktaTRlRWJ2cmhWWjJBWFlnV2hZbmRnTThLTVJpTWVNM2oxTmtXbkhBIiAv
-        PgoKPHRpdGxlPlNoYXJlUHJvZ3Jlc3M8L3RpdGxlPgoKCjxzY3JpcHQgdHlw
-        ZT0idGV4dC9qYXZhc2NyaXB0IiBzcmM9Ii8vYWpheC5nb29nbGVhcGlzLmNv
-        bS9hamF4L2xpYnMvanF1ZXJ5LzEuNy4xL2pxdWVyeS5taW4uanMiPjwvc2Ny
-        aXB0PgoKPCEtLSBHcm9vdmUgc3VwcG9ydCB3aWRnZXQgLS0+CjxzY3JpcHQ+
-        CiAgLy88IVtDREFUQVsKICAgIChmdW5jdGlvbigpIHt2YXIgcz1kb2N1bWVu
-        dC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKTsKICAgICAgcy50eXBlPSd0ZXh0
-        L2phdmFzY3JpcHQnO3MuYXN5bmM9dHJ1ZTsKICAgICAgcy5zcmM9KCdodHRw
-        czonPT1kb2N1bWVudC5sb2NhdGlvbi5wcm90b2NvbD8naHR0cHMnOidodHRw
-        JykgKwogICAgICAnOi8vc2hhcmVwcm9ncmVzcy5ncm9vdmVocS5jb20vd2lk
-        Z2V0cy85ZGE1MTdhYS02OTZkLTQ4NTEtODcwZi1hN2U3MWVkMTA5NWQvdGlj
-        a2V0LmpzJzsgdmFyIHEgPSBkb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFt
-        ZSgnc2NyaXB0JylbMF07cS5wYXJlbnROb2RlLmluc2VydEJlZm9yZShzLCBx
-        KTt9KSgpOwogIC8vXV0+Cjwvc2NyaXB0PgoKPCEtLSBIZWFwIGFuYWx5dGlj
-        cyB0cmFja2luZyAtLT4KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQi
-        PgogIHdpbmRvdy5oZWFwPXdpbmRvdy5oZWFwfHxbXSxoZWFwLmxvYWQ9ZnVu
-        Y3Rpb24odCxlKXt3aW5kb3cuaGVhcC5hcHBpZD10LHdpbmRvdy5oZWFwLmNv
-        bmZpZz1lO3ZhciBhPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIp
-        O2EudHlwZT0idGV4dC9qYXZhc2NyaXB0IixhLmFzeW5jPSEwLGEuc3JjPSgi
-        aHR0cHM6Ij09PWRvY3VtZW50LmxvY2F0aW9uLnByb3RvY29sPyJodHRwczoi
-        OiJodHRwOiIpKyIvL2Nkbi5oZWFwYW5hbHl0aWNzLmNvbS9qcy9oZWFwLSIr
-        dCsiLmpzIjt2YXIgbj1kb2N1bWVudC5nZXRFbGVtZW50c0J5VGFnTmFtZSgi
-        c2NyaXB0IilbMF07bi5wYXJlbnROb2RlLmluc2VydEJlZm9yZShhLG4pO2Zv
-        cih2YXIgbz1mdW5jdGlvbih0KXtyZXR1cm4gZnVuY3Rpb24oKXtoZWFwLnB1
-        c2goW3RdLmNvbmNhdChBcnJheS5wcm90b3R5cGUuc2xpY2UuY2FsbChhcmd1
-        bWVudHMsMCkpKX19LHA9WyJjbGVhckV2ZW50UHJvcGVydGllcyIsImlkZW50
-        aWZ5Iiwic2V0RXZlbnRQcm9wZXJ0aWVzIiwidHJhY2siLCJ1bnNldEV2ZW50
-        UHJvcGVydHkiXSxjPTA7YzxwLmxlbmd0aDtjKyspaGVhcFtwW2NdXT1vKHBb
-        Y10pfTsKICBoZWFwLmxvYWQoIjI3Mjk1MDMzOTciKTsKPC9zY3JpcHQ+Cgo8
-        L2hlYWQ+Cgo8Ym9keT4KICA8ZGl2IGlkPSJoZWFkZXJfYm94Ij4KICAgIDxk
-        aXYgaWQ9ImhlYWRlciI+CiAgICAgIDxkaXYgaWQ9InNwX2xvZ28iIG9uY2xp
-        Y2s9ImRvY3VtZW50LmxvY2F0aW9uID0gJy8nOyAiPjwvZGl2PgogICAgICA8
-        ZGl2IGlkPSJvcmdfbmFtZSI+CiAgICAgICAgPGRpdiBjbGFzcz0ib3JnLWlj
-        b24iPjwvZGl2PgogICAgICA8L2Rpdj4KICAgIDwvZGl2PiA8IS0tICNoZWFk
-        ZXIgLS0+CiAgPC9kaXY+IDwhLS0gI2hlYWRlcl9ib3ggLS0+CgogIDxkaXYg
-        aWQ9Im1haW4iPgoKICAgIDxkaXYgY2xhc3M9InBhZ2UtdG9wIj48L2Rpdj4K
-        CiAgICA8ZGl2IGNsYXNzPSJwYWdlLWNvbnRlbnQiPgogICAgCTxoMSBjbGFz
-        cz0nc3BsYXNoJz7CoUVycm9yITwvaDE+CjxoMyBzdHlsZT0ndGV4dC1hbGln
-        bjpjZW50ZXInPgpTb21ldGhpbmcgd2VudCB3cm9uZy4KPHN0cm9uZz5SRUFM
-        TFkgd3JvbmcuPC9zdHJvbmc+CjwvaDM+Cjxicj4KPHAgc3R5bGU9J3RleHQt
-        YWxpZ246Y2VudGVyJz4KPGEgaHJlZj0nbWFpbHRvOmluZm9Ac2hhcmVwcm9n
-        cmVzcy5vcmcnPkJlIGEgZGVhciwgaGVscCBvdXQgYnkgbGV0dGluZyB1cyBr
-        bm93IHdoYXRjaGEgZGlkLjwvYT4KPC9wPgoKCTwvZGl2PiA8IS0tIC5wYWdl
-        LWNvbnRlbnQgLS0+CgogICAgPGRpdiBjbGFzcz0icGFnZS1ib3R0b20iPjwv
-        ZGl2PgoKICAgIDxkaXYgaWQ9ImZvb3RlciI+CiAgICAgIDxkaXYgaWQ9ImNv
-        cHlyaWdodF90ZXh0Ij5TaGFyZVByb2dyZXNzICZjb3B5OyBDb3B5cmlnaHQg
-        MjAxNTwvZGl2PgogICAgICA8ZGl2IGlkPSJmb290ZXJfbGlua3MiPgogICAg
-        ICAgIDxhIGhyZWY9Ii90b3MiPlRlcm1zIG9mIFNlcnZpY2U8L2E+IHwKICAg
-        ICAgICA8YSBocmVmPSIvcHJpdmFjeSI+UHJpdmFjeSBQb2xpY3k8L2E+CiAg
-        ICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJoZWFwLWZvb3RlciI+CiAg
-        ICAgICAgPHAgY2xhc3M9ImhlYXAtdGV4dCI+QW5hbHl0aWNzIGJ5PC9wPgog
-        ICAgICAgIDxhIGNsYXNzPSJoZWFwLWxvZ28iIGhyZWY9Imh0dHBzOi8vaGVh
-        cGFuYWx5dGljcy5jb20vP3V0bV9zb3VyY2U9YmFkZ2UiPgogICAgICAgICAg
-        PGltZyBzcmM9Ii8vaGVhcGFuYWx5dGljcy5jb20vaW1nL2JhZGdlTGlnaHQu
-        cG5nIiBhbHQ9IkhlYXAgfCBNb2JpbGUgYW5kIFdlYiBBbmFseXRpY3MiIC8+
-        CiAgICAgICAgPC9hPgogICAgICA8L2Rpdj4gPCEtLSAuaGVhcC1mb290ZXIg
-        LS0+CiAgICAgIDxkaXYgY2xhc3M9ImxvZ28tYm94IGNsZWFyZml4Ij4KICAg
-        ICAgICA8ZGl2IGNsYXNzPSJsb2dvIj48L2Rpdj4KICAgICAgPC9kaXY+CiAg
-        ICA8L2Rpdj4KCiAgPC9kaXY+IDwhLS0gI21haW4gLS0+CjwvYm9keT4KCjwh
-        LS0gSW50ZXJjb20uaW8gLS0+Cgo8IS0tIEdvb2dsZSBBbmFseXRpY3MgLS0+
-        CjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4KICB2YXIgX2dhcSA9
-        IF9nYXEgfHwgW107CiAgX2dhcS5wdXNoKFsnX3NldEFjY291bnQnLCAnVUEt
-        Mzg0OTkzMjItMSddKTsKICBfZ2FxLnB1c2goWydfc2V0RG9tYWluTmFtZScs
-        ICdzaGFyZXByb2dyZXNzLm9yZyddKTsKICBfZ2FxLnB1c2goWydfc2V0QWxs
-        b3dMaW5rZXInLCB0cnVlXSk7CiAgX2dhcS5wdXNoKFsnX3RyYWNrUGFnZXZp
-        ZXcnXSk7CiAgKGZ1bmN0aW9uKCkgewogICAgdmFyIGdhID0gZG9jdW1lbnQu
-        Y3JlYXRlRWxlbWVudCgnc2NyaXB0Jyk7IGdhLnR5cGUgPSAndGV4dC9qYXZh
-        c2NyaXB0JzsgZ2EuYXN5bmMgPSB0cnVlOwogICAgZ2Euc3JjID0gKCdodHRw
-        czonID09IGRvY3VtZW50LmxvY2F0aW9uLnByb3RvY29sID8gJ2h0dHBzOi8v
-        c3NsJyA6ICdodHRwOi8vd3d3JykgKyAnLmdvb2dsZS1hbmFseXRpY3MuY29t
-        L2dhLmpzJzsKICAgIHZhciBzID0gZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRh
-        Z05hbWUoJ3NjcmlwdCcpWzBdOyBzLnBhcmVudE5vZGUuaW5zZXJ0QmVmb3Jl
-        KGdhLCBzKTsKICB9KSgpOwo8L3NjcmlwdD4KCjwvaHRtbD4K
+      encoding: UTF-8
+      string: '{"success":false,"response":[{"id":null,"page_url":"","page_title":null,"button_template":"","share_button_html":"\u003Cdiv
+        class=''sp_ '' \u003E\u003C/div\u003E","found_snippet":false,"is_active":false,"variants":{"facebook":[],"email":[],"twitter":[]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":{"page_url":["can''t
+        be blank"],"button_template":["is invalid"]}}'
     http_version: 
-  recorded_at: Tue, 25 Aug 2015 16:59:01 GMT
+  recorded_at: Tue, 25 Aug 2015 20:06:04 GMT
 recorded_with: VCR 2.9.3
