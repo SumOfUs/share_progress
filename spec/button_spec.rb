@@ -254,11 +254,11 @@ describe ShareProgress::Button do
           expect(WebMock).to have_requested(:post, uri).with(params)
         end
 
-        it 'raises an agument error with only one arguemnt' do
+        it 'raises an argument error with only one argument' do
           expect{ ShareProgress::Button.create(page_url) }.to raise_error ArgumentError
         end
 
-        it 'raises an agument error with zero arguemnts' do
+        it 'raises an argument error with zero arguments' do
           expect{ ShareProgress::Button.create() }.to raise_error ArgumentError
         end
       end
