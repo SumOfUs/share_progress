@@ -81,6 +81,10 @@ module ShareProgress
       (errors.size == 0)
     end
 
+    def destroy
+      self.class.destroy(id) ? self : false
+    end
+
     private
 
     def serialize

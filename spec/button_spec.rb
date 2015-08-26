@@ -115,6 +115,20 @@ describe ShareProgress::Button do
       end
     end
 
+    describe 'destroy', :vcr do
+
+      let(:button) { ShareProgress::Button.create(page_url: page_url, button_template: button_template) }
+
+      it 'should return the button instance when it is successfully deleted' do
+        expect(button.destroy).to eq button
+      end
+
+      it 'should return false when delete is called and it was already deleted' do
+        expect(button.destroy.destroy).to eq false
+      end
+
+    end
+
   end
 
   describe 'class methods' do
