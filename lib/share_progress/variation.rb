@@ -1,8 +1,15 @@
 require 'share_progress'
 require 'share_progress/client'
+require 'share_progress/errors'
 
 module ShareProgress
   class Variation
+    attr_accessor :button
+
+    def initialize(button)
+      @button = button
+    end
+
     class << self
       def facebook_type_name
         'facebook'
@@ -16,16 +23,8 @@ module ShareProgress
         'email'
       end
 
-      def facebook_type
-        FacebookVariation
-      end
-
-      def twitter_type
-        TwitterVariation
-      end
-
-      def email_type
-        EmailVariation
+      def type_name
+        'variation'
       end
     end
 
@@ -38,54 +37,21 @@ module ShareProgress
     end
 
     def save
-      # this should bump off to the button that controls it to save, just haven't finished it yet
+      @button.update
     end
 
     def set_analytics(analytics:)
-      # this will be called by the parent button which is able to update the analytics for the variation.
-    end
-  end
-
-  class FacebookVariation < Variation
-    attr_accessor :facebook_title, :facebook_thumbnail, :facebook_description
-
-    def initialize(facebook_title:, facebook_description:, facebook_thumbnail:)
-      @facebook_title = facebook_title
-      @facebook_description = facebook_description
-      @facebook_thumbnail = facebook_thumbnail
+      # Thinking at the moment that it makes sense to keep this as a basic hash, though
+      # we might need to extend its functionality down the road.
+      @analytics = analytics
     end
 
-    def compile_to_hash
-      {
-          facebook_title: @facebook_title,
-          facebook_description: @facebook_description,
-          facebook_thumbnail: @facebook_thumbnail
-      }
-    end
-  end
-
-  class TwitterVariation < Variation
-    attr_accessor :twitter_message
-
-    def initialize(twitter_message:)
-      @twitter_message = twitter_message
-    end
-
-    def compile_to_hash
-      {twitter_message: @twitter_message}
-    end
-  end
-
-  class EmailVariation < Variation
-    attr_accessor :email_subject, :email_body
-
-    def initialize(email_subject:, email_body:)
-      @email_subject = email_subject
-      @email_body = email_body
-    end
-
-    def compile_to_hash
-      {email_subject: @email_subject, email_body: @email_body}
+    def analytics
+      if @analytics
+        @analytics
+      else
+        raise AnalyticsNotFound
+      end
     end
   end
 end
