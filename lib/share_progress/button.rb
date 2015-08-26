@@ -2,13 +2,12 @@ require 'share_progress'
 require 'share_progress/client'
 require 'share_progress/utils'
 require 'share_progress/errors'
-require 'share_progress/variation'
-require 'share_progress/variation_parser'
+require 'share_progress/variant_collection'
 
 module ShareProgress
   class Button
 
-    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variations, :advanced_options
+    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variants, :advanced_options
     attr_reader   :id, :errors
 
     class << self
@@ -58,7 +57,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variations, :advanced_options, :is_active, :share_button_html, :errors]
+        [:id, :page_title, :auto_fill, :variants, :advanced_options, :is_active, :share_button_html, :errors]
       end
 
       def advanced_options_keys
@@ -67,21 +66,16 @@ module ShareProgress
     end
 
     def initialize(params)
+      @variant_collection = VariantCollection.new
       update_attributes(params)
     end
 
     def update_attributes(params)
+      params = Utils.symbolize_keys(params)
       params.each_pair do |key, value|
-        if key.to_s == 'variants'
-          # variants have to be parsed by add_variations
-          value.each_pair do |variant_type, variants|
-            self.add_variations(variations: variants)
-          end
-        else
-          instance_variable_set("@#{key}", value)
-        end
-
+        instance_variable_set("@#{key}", value) unless key == :variants
       end
+      variants = params[:variants] if params.include? :variants
     end
 
     def save
@@ -90,28 +84,20 @@ module ShareProgress
       (errors.size == 0)
     end
 
-    def add_variations(variations:)
+    def variants=(variants)
+      @variant_collection.update_variants(variants)
+    end
 
-      # Have to initialize variations if we haven't set it already.
-      if self.variations.nil?
-        self.variations = []
-      end
+    def variants
+      @variant_collection.serialize
+    end
 
-      # Expecting variations to be an array of hashes or variation classes
-      if variations.respond_to? :each
-        variations.each do |variation|
-          if variation.is_a? Variation
-            variation.button = self
-            self.variations.push variation
-          elsif variation.is_a? Hash
-            # Determine the correct variation type, then create it using the variation hash passed
-            # to the initializer, with `self` set as the button type
-            self.variations.push VariationParser.parse(variation).new(variation, button: self)
-          end
-        end
-      else
-        raise ArgumentError 'Variations parameter should be an array of variation classes or hashes.'
-      end
+    def add_or_update_variant(variant)
+      @variant_collection.add_or_update(variant)
+    end
+
+    def remove_variant(variant)
+      @variant_collection.remove(variant)
     end
 
     private
@@ -122,32 +108,6 @@ module ShareProgress
         value = send(key)
         serialized[key] = value unless value.nil?
       end
-
-      types = [
-          Variation.facebook_type_name,
-          Variation.email_type_name,
-          Variation.twitter_type_name
-      ]
-
-      if self.variations.nil?
-        return serialized
-      end
-
-      serialized[:variants] = serialized[:variants] || {}
-
-      self.variations.each do |variation|
-        types.each do |type_name|
-          if variation.class.type_name == type
-            if serialized[:variants].has_key? type_name
-              serialized[:variants][type_name].push variation.compile_to_hash
-            else
-              serialized[:variants][type_name] = []
-              serialized[:variants][type_name].push variation.compile_to_hash
-            end
-          end
-        end
-      end
-      serialized
     end
 
   end
