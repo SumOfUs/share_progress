@@ -72,7 +72,15 @@ module ShareProgress
 
     def update_attributes(params)
       params.each_pair do |key, value|
-        instance_variable_set("@#{key}", value)
+        if key == 'variants'
+          # variants have to be parsed by add_variations
+          value.each_pair do |variant_type, variants|
+            self.add_variations(variations: variants)
+          end
+        else
+          instance_variable_set("@#{key}", value)
+        end
+
       end
     end
 
