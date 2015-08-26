@@ -31,7 +31,8 @@ module ShareProgress
       end
 
       def destroy(id)
-        Client.post endpoint('delete'), { query: { id: id } }
+        deleted = Client.post endpoint('delete'), { query: { id: id } }
+        (deleted.size > 0)
       end
 
       def all(limit: 100, offset: 0)
