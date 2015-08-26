@@ -136,14 +136,27 @@ describe ShareProgress::Button do
 
       let(:button) { ShareProgress::Button.create(minimum_properties) }
 
-      it 'should return the button instance when it is successfully deleted' do
-        expect(button.destroy).to eq button
+      describe 'making requests' do
+        let(:uri) { base_uri + '/buttons/delete' }
+
+        it 'posts to the delete action with an id' do
+          params = base_params.merge({id: button.id})
+          stub_request(:post, uri).with(query: params)
+          button.destroy
+          expect(WebMock).to have_requested(:post, uri).with(query: params)
+        end
       end
 
-      it 'should return false when delete is called and it was already deleted' do
-        expect(button.destroy.destroy).to eq false
-      end
+      describe 'receiving data' do
 
+        it 'should return the button instance when it is successfully deleted' do
+          expect(button.destroy).to eq button
+        end
+
+        it 'should return false when delete is called and it was already deleted' do
+          expect(button.destroy.destroy).to eq false
+        end
+      end
     end
 
   end
