@@ -1,8 +1,8 @@
 require 'share_progress'
-require 'share_progress/variation'
+require 'share_progress/variant'
 
 module ShareProgress
-  class FacebookVariation < Variation
+  class FacebookVariant < Variant
     attr_accessor :facebook_title, :facebook_thumbnail, :facebook_description
 
     def initialize(facebook_title:, facebook_description:, facebook_thumbnail:, button:)
@@ -20,8 +20,8 @@ module ShareProgress
       }
     end
 
-    def self.type_name
-      Variation.facebook_type_name
+    def self.type
+      'facebook'
     end
   end
 end

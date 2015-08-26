@@ -1,8 +1,8 @@
 require 'share_progress'
-require 'share_progress/variation'
+require 'share_progress/variant'
 
 module ShareProgress
-  class EmailVariation < Variation
+  class EmailVariant < Variant
     attr_accessor :email_subject, :email_body
 
     def initialize(email_subject:, email_body:, button:)
@@ -15,8 +15,8 @@ module ShareProgress
       {email_subject: @email_subject, email_body: @email_body}
     end
 
-    def self.type_name
-      Variation.email_type_name
+    def self.type
+      'email'
     end
   end
 end

@@ -1,8 +1,8 @@
 require 'share_progress'
-require 'share_progress/variation'
+require 'share_progress/variant'
 
 module ShareProgress
-  class TwitterVariation < Variation
+  class TwitterVariant < Variant
     attr_accessor :twitter_message
 
     def initialize(twitter_message:, button:)
@@ -14,8 +14,8 @@ module ShareProgress
       {twitter_message: @twitter_message}
     end
 
-    def self.type_name
-      Variation.twitter_type_name
+    def self.type
+      'twitter'
     end
   end
 end

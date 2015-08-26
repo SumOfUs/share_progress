@@ -19,7 +19,7 @@ module ShareProgress
     def serialize
       serialized = Hash.new
       @variants.each do |variant_obj|
-        type_name = variation.class.type_name
+        type_name = variant.class.type_name
         serialized[type_name] ||= []
         serialized[type_name].push variant_obj.compile_to_hash
       end
@@ -45,7 +45,7 @@ module ShareProgress
     private
 
     def create_variant(variant_hash)
-      VariationParser.parse_to_class(variant_hash).new(variant_hash)
+      VariantParser.parse_to_class(variant_hash).new(variant_hash)
     end
 
     def find_variant(mystery_variant)
@@ -56,7 +56,7 @@ module ShareProgress
         if variant_hash.include? :type
           variant_type = variant_hash[:type]
         else
-          variant_type = VariationParser.parse_to_type(variants_hash)
+          variant_type = VariantParser.parse_to_type(variants_hash)
         end
         find_variant_by_id(variant_hash[:id], variant_type)
       end

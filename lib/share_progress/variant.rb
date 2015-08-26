@@ -3,29 +3,11 @@ require 'share_progress/client'
 require 'share_progress/errors'
 
 module ShareProgress
-  class Variation
-    attr_accessor :button
+  class Variant
+    attr_accessor :button, :id
 
     def initialize(button)
       @button = button
-    end
-
-    class << self
-      def facebook_type_name
-        'facebook'
-      end
-
-      def twitter_type_name
-        'twitter'
-      end
-
-      def email_type_name
-        'email'
-      end
-
-      def type_name
-        'variation'
-      end
     end
 
     def to_s
@@ -33,7 +15,7 @@ module ShareProgress
     end
 
     def compile_to_hash
-      # override this in variation subclasses
+      # override this in variant subclasses
     end
 
     def save

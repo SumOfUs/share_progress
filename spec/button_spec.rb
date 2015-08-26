@@ -28,8 +28,8 @@ describe ShareProgress::Button do
     it { should respond_to :share_button_html= }
     it { should respond_to :is_active }
     it { should respond_to :is_active= }
-    it { should respond_to :variations }
-    it { should respond_to :variations= }
+    it { should respond_to :variants }
+    it { should respond_to :variants= }
     it { should respond_to :advanced_options }
     it { should respond_to :advanced_options= }
     it { should respond_to :id }
@@ -85,23 +85,23 @@ describe ShareProgress::Button do
 
       describe 'with variants' do
 
-        it "creates the variations list if it doesn't exist" do
-          expect(basic_button.variations).to eq nil
+        it "creates the variants list if it doesn't exist" do
+          expect(basic_button.variants).to eq nil
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variations).to be_instance_of Array
+          expect(basic_button.variants).to be_instance_of Array
         end
 
-        it "turns lists of hashes into lists of Variations" do
+        it "turns lists of hashes into lists of Variants" do
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variations.size).to eq 3
-          basic_button.variations.each do |variant|
-            expect(variant).to be_instance_of ShareProgress::Variation
+          expect(basic_button.variants.size).to eq 3
+          basic_button.variants.each do |variant|
+            expect(variant).to be_instance_of ShareProgress::Variant
           end
         end
 
-        it "updates existing Variations when given a list of hashes" do
+        it "updates existing Variants when given a list of hashes" do
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variations.size).to eq 3
+          expect(basic_button.variants.size).to eq 3
           basic_button.update_attributes({variants: auto_variants})
           expect(basic_button.variants.size).to eq 3
         end
