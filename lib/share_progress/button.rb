@@ -5,22 +5,20 @@ require 'share_progress/utils'
 module ShareProgress
   class Button
 
-    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active
+    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variations, :advanced_options
     attr_reader   :id, :errors
 
     class << self
 
-      def create(page_url, button_template, raw_options={})
-        created = update(nil, page_url, button_template, raw_options)
+      def create(options={})
+        created = update(options)
         created.nil? ? new({}) : new(created)
       end
 
       # this method is used by instance.save and Button.create
-      def update(id, page_url, button_template, options={})
-        Utils.filter_keys(options, optional_keys)
+      def update(options={})
+        Utils.filter_keys(options, allowed_keys)
         Utils.filter_keys(options[:advanced_options], advanced_options_keys)
-        options = options.merge({page_url: page_url, button_template: button_template})
-        options[:id] = id unless id.nil? # without ID, update is create
         created = Client.post endpoint('update'), { body: options }
         created[0] # the API returns a list of length 1
       end
@@ -40,6 +38,10 @@ module ShareProgress
         matches.map{ |match| new(match) }
       end
 
+      def allowed_keys
+        required_keys + optional_keys
+      end
+
       private
 
       def endpoint(method=nil)
@@ -47,8 +49,13 @@ module ShareProgress
         "/buttons#{extension}"
       end
 
+      # currently no validation, but worth noting that they're different
+      def required_keys
+        [:page_url, :button_template]
+      end
+
       def optional_keys
-        [:page_title, :auto_fill, :variations, :advanced_options]
+        [:id, :page_title, :auto_fill, :variations, :advanced_options]
       end
 
       def advanced_options_keys
@@ -72,10 +79,20 @@ module ShareProgress
     end
 
     def save
-      other_fields = {page_title: page_title, share_button_html: share_button_html, is_active: is_active}
-      result = self.class.update(id, page_url, button_template, other_fields)
+      result = self.class.update(serialize)
       update_attributes(result)
       (errors.size == 0)
+    end
+
+    private
+
+    def serialize
+      serialized = Hash.new
+      self.class.allowed_keys.each do |key|
+        value = send(key)
+        serialized[key] = value unless value.nil?
+      end
+      serialized
     end
 
   end

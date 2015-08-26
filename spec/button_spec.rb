@@ -27,6 +27,10 @@ describe ShareProgress::Button do
     it { should respond_to :share_button_html= }
     it { should respond_to :is_active }
     it { should respond_to :is_active= }
+    it { should respond_to :variations }
+    it { should respond_to :variations= }
+    it { should respond_to :advanced_options }
+    it { should respond_to :advanced_options= }
     it { should respond_to :id }
     it { should_not respond_to :id= }
     it { should respond_to :errors }
@@ -208,24 +212,18 @@ describe ShareProgress::Button do
 
     describe 'create' do
 
+      let(:minimum_args) { {page_url: page_url, button_template: button_template} }
+
       describe 'making requests' do
 
         let(:uri) { base_uri + '/buttons/update' }
 
         it 'requests the update action with base parameters' do
-          body_params = HTTParty::HashConversions.to_params({page_url: page_url, button_template: button_template})
+          body_params = HTTParty::HashConversions.to_params(minimum_args)
           params = {query: base_params, body: body_params}
           stub_request(:post, uri).with(params)
-          ShareProgress::Button.create(page_url, button_template)
+          ShareProgress::Button.create(minimum_args)
           expect(WebMock).to have_requested(:post, uri).with(params)
-        end
-
-        it 'raises an agument error with only one arguemnt' do
-          expect{ ShareProgress::Button.create(page_url) }.to raise_error ArgumentError
-        end
-
-        it 'raises an agument error with zero arguemnts' do
-          expect{ ShareProgress::Button.create() }.to raise_error ArgumentError
         end
       end
 
@@ -234,18 +232,18 @@ describe ShareProgress::Button do
         describe 'after submitting good params' do
 
           it 'returns an instance of button' do
-            expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
+            expect(ShareProgress::Button.create(minimum_args)).to be_instance_of ShareProgress::Button
           end
 
           it 'returns a button with the supplied params and an id' do
-            button = ShareProgress::Button.create(page_url, button_template)
+            button = ShareProgress::Button.create(minimum_args)
             expect(button.page_url).to eq page_url
             expect(button.button_template).to eq button_template
             expect(button.id).to be > 0
           end
 
           it 'has empty errors' do
-            button = ShareProgress::Button.create(page_url, button_template)
+            button = ShareProgress::Button.create(minimum_args)
             expect(button.errors).to eq Hash.new
           end
 
@@ -253,12 +251,14 @@ describe ShareProgress::Button do
 
         describe 'after submitting bad params' do
 
+          let(:bad_params) { {page_url: nil, button_template: nil} }
+
           it 'returns an instance of button' do
-            expect(ShareProgress::Button.create(nil, nil)).to be_instance_of ShareProgress::Button
+            expect(ShareProgress::Button.create(bad_params)).to be_instance_of ShareProgress::Button
           end
 
           it 'has appropriate errors' do
-            button = ShareProgress::Button.create(nil, nil)
+            button = ShareProgress::Button.create(bad_params)
             expect( button.errors ).to be_instance_of Hash
             expect( button.errors.keys ).to match_array ['page_url', 'button_template']
           end
