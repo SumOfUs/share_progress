@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'webmock/rspec'
 require 'share_progress'
+require 'httparty'
 
 describe ShareProgress::Button do
 
@@ -10,7 +11,7 @@ describe ShareProgress::Button do
   let(:id) { 15246 }
   let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
   let(:button_template) { "sp_fb_large" }
-  let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active] }
+  let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
 
   describe 'instance methods' do
     let(:basic_button) { ShareProgress::Button.new({}) }
@@ -26,11 +27,94 @@ describe ShareProgress::Button do
     it { should respond_to :share_button_html= }
     it { should respond_to :is_active }
     it { should respond_to :is_active= }
+    it { should respond_to :variations }
+    it { should respond_to :variations= }
+    it { should respond_to :advanced_options }
+    it { should respond_to :advanced_options= }
     it { should respond_to :id }
     it { should_not respond_to :id= }
+    it { should respond_to :errors }
+    it { should_not respond_to :errors= }
 
     it { should respond_to :update_attributes }
     it { should respond_to :save }
+
+    describe 'update_attributes' do
+
+      let(:targets) { Hash.new }
+
+      [:to_s, :to_sym].each do |type|
+
+        describe "with #{type == :to_s ? 'string' : 'symbol'} keys" do
+
+          describe 'can update all base attributes' do
+
+            before :each do
+              base_fields.each { |field| targets[field.send(type)] = field.to_s }
+              basic_button.update_attributes(targets)
+              targets.each_pair do |field, value|
+                expect(basic_button.send(field.to_sym)).to eq value
+              end
+            end
+
+            it 'to strings' do
+            end
+
+            # they need to be not nil first
+            it 'to nil' do
+              base_fields.each { |field| targets[field.send(type)] = nil }
+              basic_button.update_attributes(targets)
+              targets.each_pair do |field, value|
+                expect(basic_button.send(field.to_sym)).to eq nil
+              end
+            end
+          end
+
+          it 'can update id' do
+            basic_button.update_attributes({'id'.send(type) => 12345})
+            expect(basic_button.id).to eq 12345
+          end
+
+          it 'cannot read fake keys' do
+            basic_button.update_attributes({'fake_key'.send(type) => 12345})
+            expect{ basic_button.fake_key }.to raise_error NoMethodError
+          end
+        end
+      end
+    end
+
+    describe 'save', :vcr do
+
+      it 'returns true on a successful save' do
+        basic_button.page_url = page_url
+        basic_button.button_template = button_template
+        expect(basic_button.save).to eq true
+      end
+
+      it 'returns false on an unsuccessful save' do
+        basic_button.page_url = nil
+        expect(basic_button.save).to eq false
+      end
+
+      it 'gets rid of existing errors after successful save' do
+        basic_button.page_url = nil
+        basic_button.save
+        expect(basic_button.errors.size).to be > 0
+        basic_button.page_url = page_url
+        basic_button.button_template = button_template
+        basic_button.save
+        expect(basic_button.errors).to eq Hash.new
+      end
+
+      it 'updates auto-populated fields on successful save' do
+        expect(basic_button.page_title).to eq nil
+        basic_button.page_url = page_url
+        basic_button.button_template = button_template
+        basic_button.save
+        expect(basic_button.page_title).not_to eq nil
+      end
+    end
+
   end
 
   describe 'class methods' do
@@ -77,14 +161,14 @@ describe ShareProgress::Button do
 
       describe 'receiving data', :vcr do
 
-        it 'receives an array of Button instances', :vcr do
+        it 'receives an array of Button instances with ids', :vcr do
           result = ShareProgress::Button.all
           expect(result).to be_instance_of Array
           result.each do |button|
             expect(button).to be_instance_of ShareProgress::Button
+            expect(button.id).not_to be_nil
           end
         end
-
       end
     end
 
@@ -102,7 +186,7 @@ describe ShareProgress::Button do
         end
 
         it 'raises an error without an id' do
-          expect{ ShareProgress::Button.find() }.to raise_error(ArgumentError)
+          expect{ ShareProgress::Button.find() }.to raise_error ArgumentError
         end
       end
 
@@ -123,29 +207,81 @@ describe ShareProgress::Button do
           end
         end
 
+        it 'raises an ArgumentError when there is no button with that id' do
+          expect{ ShareProgress::Button.find(999999999)}.to raise_error ShareProgress::RecordNotFound
+        end
+
       end
 
     end
 
     describe 'create' do
 
+      let(:minimum_args) { {page_url: page_url, button_template: button_template} }
+
+      describe 'making requests' do
+
+        let(:uri) { base_uri + '/buttons/update' }
+
+        it 'requests the update action with base parameters' do
+          body_params = HTTParty::HashConversions.to_params(minimum_args)
+          params = {query: base_params, body: body_params}
+          stub_request(:post, uri).with(params)
+          ShareProgress::Button.create(minimum_args)
+          expect(WebMock).to have_requested(:post, uri).with(params)
+        end
+
+        it 'requests the update action with many parameters' do
+          args = {page_title: "xxx", is_active: false}.merge(minimum_args)
+          body_params = HTTParty::HashConversions.to_params(args)
+          params = {query: base_params, body: body_params}
+          stub_request(:post, uri).with(params)
+          ShareProgress::Button.create(args)
+          expect(WebMock).to have_requested(:post, uri).with(params)
+        end
+
+        it 'raises an agument error with only one arguemnt' do
+          expect{ ShareProgress::Button.create(page_url) }.to raise_error ArgumentError
+        end
+
+        it 'raises an agument error with zero arguemnts' do
+          expect{ ShareProgress::Button.create() }.to raise_error ArgumentError
+        end
+      end
+
       describe 'receiving data', :vcr do
 
         describe 'after submitting good params' do
+
           it 'returns an instance of button' do
-            expect(ShareProgress::Button.create(page_url, button_template)).to be_instance_of ShareProgress::Button
+            expect(ShareProgress::Button.create(minimum_args)).to be_instance_of ShareProgress::Button
           end
 
-          it 'returns a button with the supplied params' do
-            button = ShareProgress::Button.create(page_url, button_template)
-            button
+          it 'returns a button with the supplied params and an id' do
+            button = ShareProgress::Button.create(minimum_args)
+            expect(button.page_url).to eq page_url
+            expect(button.button_template).to eq button_template
+            expect(button.id).to be > 0
+          end
+
+          it 'has empty errors' do
+            button = ShareProgress::Button.create(minimum_args)
+            expect(button.errors).to eq Hash.new
           end
         end
 
         describe 'after submitting bad params' do
 
-          it 'returns nil' do
-            expect(ShareProgress::Button.create(nil, nil)).to eq nil
+          let(:bad_params) { {page_url: nil, button_template: nil} }
+
+          it 'returns an instance of button' do
+            expect(ShareProgress::Button.create(bad_params)).to be_instance_of ShareProgress::Button
+          end
+
+          it 'has appropriate errors' do
+            button = ShareProgress::Button.create(bad_params)
+            expect( button.errors ).to be_instance_of Hash
+            expect( button.errors.keys ).to match_array ['page_url', 'button_template']
           end
         end
 

@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://run.shareprogress.org/api/v1/buttons/read?id=999999999&key=<API_KEY>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - close
+      Date:
+      - Tue, 25 Aug 2015 18:19:57 GMT
+      Status:
+      - 404 Not Found
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Ua-Compatible:
+      - chrome=1
+      X-Ratelimit-Limit:
+      - '30'
+      X-Ratelimit-Remaining:
+      - '29'
+      X-Ratelimit-Reset:
+      - '1440526857'
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 80c22a13-34f0-49bd-9999-1f48a6fe54a3
+      X-Runtime:
+      - '0.016608'
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"success":false,"message":"Can''t find that Buttons","response":[]}'
+    http_version: 
+  recorded_at: Tue, 25 Aug 2015 18:20:32 GMT
+recorded_with: VCR 2.9.3

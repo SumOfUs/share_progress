@@ -10,17 +10,20 @@ module ShareProgress
     class << self
 
       def get(*args)
-        response_field(super(*args))
+        format_response(super(*args))
       end
 
       def post(*args)
-        response_field(super(*args))
+        format_response(super(*args))
       end
 
       private
 
-      def response_field(http_response)
-        http_response['response'].nil? ? [] : http_response['response']
+      def format_response(http_response)
+        formatted = http_response['response'].nil? ? [] : http_response['response']
+        errors = http_response['success'] ? {} : http_response['message']
+        formatted.each { |r| r['errors'] = errors }
+        formatted
       end
 
     end
