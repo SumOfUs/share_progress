@@ -11,6 +11,7 @@ describe ShareProgress::Button do
   let(:id) { 15246 }
   let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
   let(:button_template) { "sp_fb_large" }
+  let(:auto_variants) { {"facebook" => [{"id" => 62899,"facebook_title" => nil,"facebook_description" => nil,"facebook_thumbnail" => nil}],"email" => [{"id" => 62898,"email_subject" => nil,"email_body" => nil}],"twitter" => [{"id" => 62897,"twitter_message" => nil}]} }
   let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
 
   describe 'instance methods' do
@@ -80,6 +81,31 @@ describe ShareProgress::Button do
             expect{ basic_button.fake_key }.to raise_error NoMethodError
           end
         end
+      end
+
+      describe 'with variants' do
+
+        it "creates the variations list if it doesn't exist" do
+          expect(basic_button.variations).to eq nil
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variations).to be_instance_of Array
+        end
+
+        it "turns lists of hashes into lists of Variations" do
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variations.size).to eq 3
+          basic_button.variations.each do |variant|
+            expect(variant).to be_instance_of ShareProgress::Variation
+          end
+        end
+
+        it "updates existing Variations when given a list of hashes" do
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variations.size).to eq 3
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variants.size).to eq 3
+        end
+
       end
     end
 
