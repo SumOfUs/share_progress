@@ -41,7 +41,7 @@ module ShareProgress
       end
 
       def allowed_keys
-        required_keys + optional_keys
+        optional_keys + required_keys
       end
 
       private
@@ -57,7 +57,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variations, :advanced_options, :is_active, :share_button_html, :errors]
+        [:id, :page_title, :auto_fill, :variations, :advanced_options, :share_button_html, :is_active, :errors]
       end
 
       def advanced_options_keys

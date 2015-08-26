@@ -11,6 +11,8 @@ describe ShareProgress::Button do
   let(:id) { 15246 }
   let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
   let(:button_template) { "sp_fb_large" }
+  let(:minimum_properties) { {page_url: page_url, button_template: button_template} }
+  let(:full_properties) { {page_title: "What Fast Track Means", share_button_html: "\u003Cdiv class=''sp_15405 sp_fb_large'' \u003E\u003C/div\u003E", is_active: false}.merge(minimum_properties) }
   let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
 
   describe 'instance methods' do
@@ -83,41 +85,56 @@ describe ShareProgress::Button do
       end
     end
 
-    describe 'save', :vcr do
+    describe 'save' do
 
-      it 'returns true on a successful save' do
-        basic_button.page_url = page_url
-        basic_button.button_template = button_template
-        expect(basic_button.save).to eq true
+      let(:uri) { base_uri + '/buttons/update' }
+
+      describe 'making requests' do
+        it 'requests the update action with full parameters' do
+          body_params = HTTParty::HashConversions.to_params(full_properties)
+          params = {query: base_params, body: body_params}
+          stub_request(:post, uri).with(params)
+          button = ShareProgress::Button.new(full_properties)
+          expect{ button.save }.to raise_error # from blocked http request
+          expect(WebMock).to have_requested(:post, uri).with(params)
+        end
       end
 
-      it 'returns false on an unsuccessful save' do
-        basic_button.page_url = nil
-        expect(basic_button.save).to eq false
-      end
+      describe 'receiving data', :vcr do
+        it 'returns true on a successful save' do
+          basic_button.page_url = page_url
+          basic_button.button_template = button_template
+          expect(basic_button.save).to eq true
+        end
 
-      it 'gets rid of existing errors after successful save' do
-        basic_button.page_url = nil
-        basic_button.save
-        expect(basic_button.errors.size).to be > 0
-        basic_button.page_url = page_url
-        basic_button.button_template = button_template
-        basic_button.save
-        expect(basic_button.errors).to eq Hash.new
-      end
+        it 'returns false on an unsuccessful save' do
+          basic_button.page_url = nil
+          expect(basic_button.save).to eq false
+        end
 
-      it 'updates auto-populated fields on successful save' do
-        expect(basic_button.page_title).to eq nil
-        basic_button.page_url = page_url
-        basic_button.button_template = button_template
-        basic_button.save
-        expect(basic_button.page_title).not_to eq nil
+        it 'gets rid of existing errors after successful save' do
+          basic_button.page_url = nil
+          basic_button.save
+          expect(basic_button.errors.size).to be > 0
+          basic_button.page_url = page_url
+          basic_button.button_template = button_template
+          basic_button.save
+          expect(basic_button.errors).to eq Hash.new
+        end
+
+        it 'updates auto-populated fields on successful save' do
+          expect(basic_button.page_title).to eq nil
+          basic_button.page_url = page_url
+          basic_button.button_template = button_template
+          basic_button.save
+          expect(basic_button.page_title).not_to eq nil
+        end
       end
     end
 
     describe 'destroy', :vcr do
 
-      let(:button) { ShareProgress::Button.create(page_url: page_url, button_template: button_template) }
+      let(:button) { ShareProgress::Button.create(minimum_properties) }
 
       it 'should return the button instance when it is successfully deleted' do
         expect(button.destroy).to eq button
@@ -231,26 +248,23 @@ describe ShareProgress::Button do
 
     describe 'create' do
 
-      let(:minimum_args) { {page_url: page_url, button_template: button_template} }
-
       describe 'making requests' do
 
         let(:uri) { base_uri + '/buttons/update' }
 
         it 'requests the update action with base parameters' do
-          body_params = HTTParty::HashConversions.to_params(minimum_args)
+          body_params = HTTParty::HashConversions.to_params(minimum_properties)
           params = {query: base_params, body: body_params}
           stub_request(:post, uri).with(params)
-          ShareProgress::Button.create(minimum_args)
+          ShareProgress::Button.create(minimum_properties)
           expect(WebMock).to have_requested(:post, uri).with(params)
         end
 
         it 'requests the update action with many parameters' do
-          args = {page_title: "xxx", is_active: false}.merge(minimum_args)
-          body_params = HTTParty::HashConversions.to_params(args)
+          body_params = HTTParty::HashConversions.to_params(full_properties)
           params = {query: base_params, body: body_params}
           stub_request(:post, uri).with(params)
-          ShareProgress::Button.create(args)
+          ShareProgress::Button.create(full_properties)
           expect(WebMock).to have_requested(:post, uri).with(params)
         end
 
@@ -268,18 +282,18 @@ describe ShareProgress::Button do
         describe 'after submitting good params' do
 
           it 'returns an instance of button' do
-            expect(ShareProgress::Button.create(minimum_args)).to be_instance_of ShareProgress::Button
+            expect(ShareProgress::Button.create(minimum_properties)).to be_instance_of ShareProgress::Button
           end
 
           it 'returns a button with the supplied params and an id' do
-            button = ShareProgress::Button.create(minimum_args)
+            button = ShareProgress::Button.create(minimum_properties)
             expect(button.page_url).to eq page_url
             expect(button.button_template).to eq button_template
             expect(button.id).to be > 0
           end
 
           it 'has empty errors' do
-            button = ShareProgress::Button.create(minimum_args)
+            button = ShareProgress::Button.create(minimum_properties)
             expect(button.errors).to eq Hash.new
           end
         end
