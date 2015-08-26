@@ -74,6 +74,11 @@ describe ShareProgress::Button do
             basic_button.update_attributes({'id'.send(type) => 12345})
             expect(basic_button.id).to eq 12345
           end
+
+          it 'cannot read fake keys' do
+            basic_button.update_attributes({'fake_key'.send(type) => 12345})
+            expect{ basic_button.fake_key }.to raise_error NoMethodError
+          end
         end
       end
     end

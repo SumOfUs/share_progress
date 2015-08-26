@@ -55,7 +55,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variations, :advanced_options]
+        [:id, :page_title, :auto_fill, :variations, :advanced_options, :is_active, :share_button_html, :errors]
       end
 
       def advanced_options_keys
@@ -68,14 +68,9 @@ module ShareProgress
     end
 
     def update_attributes(params)
-      params = Utils.symbolize_keys(params)
-      @id = params[:id] if params.include? :id
-      @errors = params[:errors] if params.include? :errors
-      self.page_url = params[:page_url] if params.include? :page_url
-      self.is_active = params[:is_active] if params.include? :is_active
-      self.page_title = params[:page_title] if params.include? :page_title
-      self.button_template = params[:button_template] if params.include? :button_template
-      self.share_button_html = params[:share_button_html] if params.include? :share_button_html
+      params.each_pair do |key, value|
+        instance_variable_set("@#{key}", value)
+      end
     end
 
     def save
