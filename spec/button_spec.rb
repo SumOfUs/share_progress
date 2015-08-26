@@ -230,6 +230,23 @@ describe ShareProgress::Button do
           ShareProgress::Button.create(minimum_args)
           expect(WebMock).to have_requested(:post, uri).with(params)
         end
+
+        it 'requests the update action with many parameters' do
+          args = {page_title: "xxx", is_active: false}.merge(minimum_args)
+          body_params = HTTParty::HashConversions.to_params(args)
+          params = {query: base_params, body: body_params}
+          stub_request(:post, uri).with(params)
+          ShareProgress::Button.create(args)
+          expect(WebMock).to have_requested(:post, uri).with(params)
+        end
+
+        it 'raises an agument error with only one arguemnt' do
+          expect{ ShareProgress::Button.create(page_url) }.to raise_error ArgumentError
+        end
+
+        it 'raises an agument error with zero arguemnts' do
+          expect{ ShareProgress::Button.create() }.to raise_error ArgumentError
+        end
       end
 
       describe 'receiving data', :vcr do
@@ -251,7 +268,6 @@ describe ShareProgress::Button do
             button = ShareProgress::Button.create(minimum_args)
             expect(button.errors).to eq Hash.new
           end
-
         end
 
         describe 'after submitting bad params' do

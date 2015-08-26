@@ -10,8 +10,8 @@ module ShareProgress
 
     class << self
 
-      def create(options={})
-        created = update(options)
+      def create(page_url:, button_template:, **options)
+        created = update(options.merge(page_url: page_url, button_template: button_template))
         created.nil? ? new({}) : new(created)
       end
 
