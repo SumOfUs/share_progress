@@ -1,6 +1,7 @@
 require 'share_progress'
 require 'share_progress/client'
 require 'share_progress/utils'
+require 'share_progress/errors'
 
 module ShareProgress
   class Button
@@ -25,7 +26,7 @@ module ShareProgress
 
       def find(id)
         matches = Client.get endpoint('read'), { query: { id: id } }
-        raise ArgumentError.new("No button exists with id #{id}") if matches.size < 1
+        raise RecordNotFound.new("No button exists with id #{id}") if matches.size < 1
         new(matches[0])
       end
 

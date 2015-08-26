@@ -208,7 +208,7 @@ describe ShareProgress::Button do
         end
 
         it 'raises an ArgumentError when there is no button with that id' do
-          expect{ ShareProgress::Button.find(999999999)}.to raise_error ArgumentError
+          expect{ ShareProgress::Button.find(999999999)}.to raise_error ShareProgress::RecordNotFound
         end
 
       end
