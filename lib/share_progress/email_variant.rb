@@ -15,9 +15,7 @@ module ShareProgress
       'email'
     end
 
-    private
-
-    def fields
+    def self.fields
       [:email_subject, :email_body]
     end
   end

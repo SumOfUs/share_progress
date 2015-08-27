@@ -45,7 +45,7 @@ module ShareProgress
     private
 
     def create_variant(variant_hash)
-      VariantParser.parse_to_class(variant_hash).new(variant_hash)
+      VariantParser.parse(variant_hash).new(variant_hash)
     end
 
     def find_variant(mystery_variant)
@@ -56,7 +56,7 @@ module ShareProgress
         if variant_hash.include? :type
           variant_type = variant_hash[:type]
         else
-          variant_type = VariantParser.parse_to_type(variants_hash)
+          variant_type = VariantParser.parse(variants_hash).type
         end
         find_variant_by_id(variant_hash[:id], variant_type)
       end

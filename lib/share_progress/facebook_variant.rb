@@ -16,9 +16,7 @@ module ShareProgress
       'facebook'
     end
 
-    private
-
-    def fields
+    def self.fields
       [:facebook_title, :facebook_description, :facebook_thumbnail]
     end
   end

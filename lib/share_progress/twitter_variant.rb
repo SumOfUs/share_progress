@@ -14,9 +14,7 @@ module ShareProgress
       'twitter'
     end
 
-    private
-
-    def fields
+    def self.fields
       [:twitter_message]
     end
   end
