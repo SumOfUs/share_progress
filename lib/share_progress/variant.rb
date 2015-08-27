@@ -6,8 +6,8 @@ module ShareProgress
   class Variant
     attr_accessor :button, :id
 
-    def initialize(button)
-      @button = button
+    def initialize(params=nil)
+      update_attributes(params) unless params.nil?
     end
 
     def to_s
@@ -32,6 +32,7 @@ module ShareProgress
 
     def update_attributes(params)
       Utils.symbolize_keys(params).each_pair do |key, value|
+        @button = value if key == :button
         next unless all_fields.include? key
         instance_variable_set("@#{key}", value)
       end
@@ -39,6 +40,10 @@ module ShareProgress
 
     def all_fields
       self.class.fields + [:id]
+    end
+
+    def type
+      self.class.type
     end
 
     def set_analytics(analytics:)

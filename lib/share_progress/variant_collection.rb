@@ -1,8 +1,9 @@
 module ShareProgress
   class VariantCollection
 
-    def initialize
+    def initialize(variant_hash=nil)
       @variants = []
+      update_variants(variant_hash) unless variant_hash.nil?
     end
 
     def update_variants(variants_hash)
@@ -19,7 +20,7 @@ module ShareProgress
     def serialize
       serialized = Hash.new
       @variants.each do |variant_obj|
-        type_name = variant.class.type_name
+        type_name = variant.type
         serialized[type_name] ||= []
         serialized[type_name].push variant_obj.compile_to_hash
       end
@@ -33,13 +34,17 @@ module ShareProgress
       else
         variant_obj.update_attributes(variant)
       end
-
+      variant_obj
     end
 
     def remove(variant)
       target = find_variant(variant)
       @variants.select!{ |v| v != target }
       target
+    end
+
+    def variants
+      @variants
     end
 
     private
@@ -56,7 +61,7 @@ module ShareProgress
         if variant_hash.include? :type
           variant_type = variant_hash[:type]
         else
-          variant_type = VariantParser.parse(variants_hash).type
+          variant_type = VariantParser.parse(variant_hash).type
         end
         find_variant_by_id(variant_hash[:id], variant_type)
       end
