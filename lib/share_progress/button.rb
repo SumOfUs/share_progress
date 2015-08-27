@@ -31,7 +31,8 @@ module ShareProgress
       end
 
       def destroy(id)
-        Client.post endpoint('delete'), { query: { id: id } }
+        deleted = Client.post endpoint('delete'), { query: { id: id } }
+        (deleted.size > 0)
       end
 
       def all(limit: 100, offset: 0)
@@ -40,7 +41,7 @@ module ShareProgress
       end
 
       def allowed_keys
-        required_keys + optional_keys
+        optional_keys + required_keys
       end
 
       private
@@ -56,7 +57,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variations, :advanced_options, :is_active, :share_button_html, :errors]
+        [:id, :page_title, :auto_fill, :variations, :advanced_options, :share_button_html, :is_active, :errors]
       end
 
       def advanced_options_keys
@@ -78,6 +79,10 @@ module ShareProgress
       result = self.class.update(serialize)
       update_attributes(result)
       (errors.size == 0)
+    end
+
+    def destroy
+      self.class.destroy(id) ? self : false
     end
 
     private
