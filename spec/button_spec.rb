@@ -85,25 +85,16 @@ describe ShareProgress::Button do
 
       describe 'with variants' do
 
-        it "creates the variants list if it doesn't exist" do
-          expect(basic_button.variants).to eq nil
-          basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants).to be_instance_of Array
-        end
-
-        it "turns lists of hashes into lists of Variants" do
-          basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants.size).to eq 3
-          basic_button.variants.each do |variant|
-            expect(variant).to be_instance_of ShareProgress::Variant
-          end
-        end
-
         it "updates existing Variants when given a list of hashes" do
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants.size).to eq 3
+          expect(basic_button.variants['facebook'].size).to eq 1
+          expect(basic_button.variants['twitter'].size).to eq 1
+          expect(basic_button.variants['email'].size).to eq 1
+
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants.size).to eq 3
+          expect(basic_button.variants['facebook'].size).to eq 1
+          expect(basic_button.variants['twitter'].size).to eq 1
+          expect(basic_button.variants['email'].size).to eq 1
         end
 
       end

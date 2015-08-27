@@ -38,7 +38,7 @@ module ShareProgress
     end
 
     def all_fields
-      fields + [:id]
+      self.class.fields + [:id]
     end
 
     def set_analytics(analytics:)
