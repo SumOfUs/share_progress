@@ -10,12 +10,14 @@ module ShareProgress
       super(button)
     end
 
-    def compile_to_hash
-      {twitter_message: @twitter_message}
-    end
-
     def self.type
       'twitter'
+    end
+
+    private
+
+    def fields
+      [:twitter_message]
     end
   end
 end

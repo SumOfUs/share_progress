@@ -12,16 +12,14 @@ module ShareProgress
       super(button)
     end
 
-    def compile_to_hash
-      {
-          facebook_title: @facebook_title,
-          facebook_description: @facebook_description,
-          facebook_thumbnail: @facebook_thumbnail
-      }
-    end
-
     def self.type
       'facebook'
+    end
+
+    private
+
+    def fields
+      [:facebook_title, :facebook_description, :facebook_thumbnail]
     end
   end
 end
