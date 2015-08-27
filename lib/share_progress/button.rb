@@ -108,6 +108,7 @@ module ShareProgress
         value = send(key)
         serialized[key] = value unless value.nil?
       end
+      serialized
     end
 
   end
