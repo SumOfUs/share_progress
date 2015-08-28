@@ -32,7 +32,8 @@ module ShareProgress
       end
 
       def destroy(id)
-        Client.post endpoint('delete'), { query: { id: id } }
+        deleted = Client.post endpoint('delete'), { query: { id: id } }
+        (deleted.size > 0)
       end
 
       def all(limit: 100, offset: 0)
@@ -41,7 +42,7 @@ module ShareProgress
       end
 
       def allowed_keys
-        required_keys + optional_keys
+        optional_keys + required_keys
       end
 
       private
@@ -57,7 +58,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variants, :advanced_options, :is_active, :share_button_html, :errors]
+        [:id, :page_title, :auto_fill, :variants, :advanced_options, :share_button_html, :is_active, :errors]
       end
 
       def advanced_options_keys
@@ -102,6 +103,10 @@ module ShareProgress
 
     def find_variant(variant)
       @variant_collection.find(variant)
+    end
+
+    def destroy
+      self.class.destroy(id) ? self : false
     end
 
     private
