@@ -1,6 +1,7 @@
 require 'share_progress'
 require 'share_progress/client'
 require 'share_progress/errors'
+require 'share_progress/button'
 
 module ShareProgress
   class Variant
@@ -15,12 +16,7 @@ module ShareProgress
     end
 
     def save
-      # I think it would be potentially confusing if you're editing the
-      # button and the variations and the variation saves the button's own
-      # attributes unexpectedly. Instead, I think we should just call to
-      #   Button.update(id: @button.id, variants: {type => [serialize]})
-      # to update just that one variant
-      @button.update
+      response = Button.update(id: @button.id, variants: {type => [serialize]})
     end
 
     def serialize
