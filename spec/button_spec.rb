@@ -87,14 +87,14 @@ describe ShareProgress::Button do
 
         it "updates existing Variants when given a list of hashes" do
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants['facebook'].size).to eq 1
-          expect(basic_button.variants['twitter'].size).to eq 1
-          expect(basic_button.variants['email'].size).to eq 1
+          expect(basic_button.variants[:facebook].size).to eq 1
+          expect(basic_button.variants[:twitter].size).to eq 1
+          expect(basic_button.variants[:email].size).to eq 1
 
           basic_button.update_attributes({variants: auto_variants})
-          expect(basic_button.variants['facebook'].size).to eq 1
-          expect(basic_button.variants['twitter'].size).to eq 1
-          expect(basic_button.variants['email'].size).to eq 1
+          expect(basic_button.variants[:facebook].size).to eq 1
+          expect(basic_button.variants[:twitter].size).to eq 1
+          expect(basic_button.variants[:email].size).to eq 1
         end
 
       end

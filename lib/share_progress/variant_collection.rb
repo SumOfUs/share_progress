@@ -23,7 +23,7 @@ module ShareProgress
     def serialize
       serialized = {}
       @variants.each do |variant_obj|
-        type_name = variant_obj.type
+        type_name = variant_obj.type.to_sym
         serialized[type_name] ||= []
         serialized[type_name].push variant_obj.serialize
       end

@@ -179,7 +179,9 @@ module ShareProgress
 
     describe 'serialize' do
 
-      it 'is formatted as a hash with each media type as a list of hashes'
+      it 'is formatted as a hash with each media type as a list of hashes' do
+        expect(hollow_collection.serialize).to eq(basic_variants)
+      end
       it 'correctly serializes with just one type of media'
       it 'correctly serizlizes with multiple instances of each type of media'
       it 'reflects changes from update_variants'
