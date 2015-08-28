@@ -17,13 +17,16 @@ module ShareProgress
       let(:base_params) { { key: ENV['SHARE_PROGRESS_API_KEY'] } }
       let(:base_uri) { ShareProgress::Client::base_uri }
       let(:uri) { base_uri + '/buttons/update' }
-      let(:twitter_values) { { "email_subject" => "You won't belive this", "email_body" => nil } }
-      let(:facebook_values) { { "twitter_message" => "@bernie2016 <3 <3 <3" } }
-      let(:email_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)" } }
+
+      let(:limited_fields) { { 'twitter' => 'twitter_message', 'facebook' => 'facebook_title', 'email' => 'email_subject' } }
+      let(:email_values) { { "email_subject" => nil, "email_body" => "You won't belive this {LINK}" } }
+      let(:twitter_values) { { "twitter_message" => "@bernie2016 <3 <3 <3 {LINK}" } }
+      let(:facebook_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)" } }
       let(:all_values) { {'facebook' => facebook_values, 'email' => email_values, 'twitter' => twitter_values } }
+
       let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
       let(:button_template) { "sp_fb_large" }
-      let(:button) { Button.new(page_url: page_url, button_template: button_template) }
+      let(:button) { Button.new(page_url: page_url, button_template: button_template, id: 15543) }
       let(:values) { all_values[variant_class.type].merge(button: button) }
       let(:variant_obj) { variant_class.new(values) }
 
@@ -143,8 +146,14 @@ module ShareProgress
           end
         end
 
-        describe 'receving data' do
-          it 'adds relevant validation errors to the variation'
+        describe 'receiving data', :vcr do
+          it 'adds relevant validation errors to the variation' do
+            too_long = "And lo, as the dew fell and the woodland critters retreated into their burrows, a great hush fell upon the forest - TRANQUILITY TURNT UP 100%"
+            field = limited_fields[variant_obj.type]
+            variant_obj.send("#{field}=", too_long)
+            variant_obj.save
+            expect(variant_obj.errors.keys).to eq [field]
+          end
         end
 
         it "does not cause any of the button's other variations to save"

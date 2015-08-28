@@ -19,8 +19,10 @@ module ShareProgress
     def save
       add_error('button', "can't be blank") and return false if @button.nil?
       add_error('button', "must have an id") and return false if @button.id.nil?
-
       response = Button.update(id: @button.id, variants: {type => [serialize]})
+      return false unless response.is_a? Hash
+      @errors = parse_errors(response['errors'])
+      (@errors.size > 0)
     end
 
     def serialize
@@ -67,6 +69,22 @@ module ShareProgress
       @errors ||= {}
       @errors[field.to_s] ||= []
       @errors[field.to_s].push(message)
+    end
+
+    def parse_errors(errors)
+      begin
+        messages = errors['variants'][0]
+        return {} if messages.nil?
+      rescue NoMethodError, KeyError, IndexError
+        return {}
+      end
+      # it concatenates the field and the error into a full message
+      output = {}
+      messages.map{|msg| msg.split(' ', 2)}.each do |field, error|
+        output[field] ||= []
+        output[field].push error
+      end
+      output
     end
 
   end
