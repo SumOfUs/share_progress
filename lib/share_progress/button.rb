@@ -100,6 +100,10 @@ module ShareProgress
       @variant_collection.remove(variant)
     end
 
+    def find_variant(variant)
+      @variant_collection.find(variant)
+    end
+
     private
 
     def serialize
