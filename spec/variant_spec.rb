@@ -91,11 +91,6 @@ module ShareProgress
               expect(variant_obj.button).not_to receive(:save)
               variant_obj.save
             end
-
-            it 'returns true' do
-              pending('get it together')
-              expect(variant_obj.save).to eq true
-            end
           end
 
           describe 'with button without id' do
@@ -147,12 +142,19 @@ module ShareProgress
         end
 
         describe 'receiving data', :vcr do
-          it 'adds relevant validation errors to the variation' do
-            too_long = "And lo, as the dew fell and the woodland critters retreated into their burrows, a great hush fell upon the forest - TRANQUILITY TURNT UP 100%"
-            field = limited_fields[variant_obj.type]
-            variant_obj.send("#{field}=", too_long)
-            variant_obj.save
-            expect(variant_obj.errors.keys).to eq [field]
+
+          variant_class.fields.each do |field|
+            next if field == :facebook_thumbnail # only field without a character limit
+            it "adds validation errors for #{field}" do
+              too_long = "And lo, as the dew fell and the woodland critters retreated into their burrows, a great hush fell upon the forest - TRANQUILITY TURNT UP 100%. " * 10
+              variant_obj.send("#{field}=", too_long)
+              expect(variant_obj.save).to eq false
+              expect(variant_obj.errors.keys).to eq [field.to_s]
+            end
+          end
+
+          it "returns true on success" do
+            expect(variant_obj.save).to eq true
           end
         end
 

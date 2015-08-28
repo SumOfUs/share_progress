@@ -22,7 +22,7 @@ module ShareProgress
       response = Button.update(id: @button.id, variants: {type => [serialize]})
       return false unless response.is_a? Hash
       @errors = parse_errors(response['errors'])
-      (@errors.size > 0)
+      (@errors.size == 0)
     end
 
     def serialize
