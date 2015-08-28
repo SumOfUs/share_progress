@@ -183,19 +183,12 @@ module ShareProgress
         expect(hollow_collection.serialize).to eq(basic_variants)
       end
       it 'correctly serializes with just one type of media'
-      it 'correctly serizlizes with multiple instances of each type of media'
+      it 'correctly serializes with multiple instances of each type of media'
       it 'reflects changes from update_variants'
 
     end
 
     describe 'remove' do
-
-      it 'removes a variant referenced by a hash with just id'
-      it 'removes two variants with the same id'
-
-      it 'removes a variant referenced by the variant object'
-      it 'does not remove anything when passed a different variant with the same id'
-
       it 'makes the call to the API URI with _destroy true'
     end
   end
