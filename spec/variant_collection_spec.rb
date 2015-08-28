@@ -8,16 +8,16 @@ require 'share_progress/variant_parser'
 module ShareProgress
   describe VariantCollection do
 
-    let(:facebook_hash) { {"id" => 62899, "facebook_title" => "go bernie", "facebook_description" => ";)","facebook_thumbnail" => nil} }
-    let(:twitter_hash) { {"id" => 62897, "twitter_message" => "@bernie2016 <3 <3 <3" } }
-    let(:email_hash) { {"id" => 62898, "email_subject" => "You won't belive this", "email_body" => "just kidding"} }
+    let(:facebook_hash) { {id: 62899, facebook_title: 'go bernie', facebook_description: ';)', facebook_thumbnail: nil} }
+    let(:twitter_hash) { {id: 62897, twitter_message: '@bernie2016 <3 <3 <3' } }
+    let(:email_hash) { {id: 62898, email_subject: 'You won\'t believe this', email_body: 'just kidding'} }
 
-    let(:empty_facebook_hash) { {"id" => 62899,"facebook_title" => nil,"facebook_description" => nil,"facebook_thumbnail" => nil} }
-    let(:empty_twitter_hash) { {"id" => 62897,"twitter_message" => nil } }
-    let(:empty_email_hash) { {"id" => 62898,"email_subject" => nil,"email_body" => nil} }
+    let(:empty_facebook_hash) { {id: 62899, facebook_title: nil, facebook_description: nil, facebook_thumbnail: nil} }
+    let(:empty_twitter_hash) { {id: 62897, twitter_message: nil } }
+    let(:empty_email_hash) { {id: 62898, email_subject: nil, email_body: nil } }
 
-    let(:basic_variants) { {'twitter' => [twitter_hash], 'email' => [email_hash], 'facebook' => [facebook_hash]} }
-    let(:hollow_variants) { {'twitter' => [empty_twitter_hash], 'email' => [empty_email_hash], 'facebook' => [empty_facebook_hash]} }
+    let(:basic_variants) { {twitter: [twitter_hash], email: [email_hash], facebook: [facebook_hash]} }
+    let(:hollow_variants) { {twitter: [empty_twitter_hash], email: [empty_email_hash], facebook: [empty_facebook_hash]} }
     let(:hollow_collection) { VariantCollection.new(basic_variants) }
     let(:empty_variant_collection) { VariantCollection.new({}) }
     let(:twitter_variant) { TwitterVariant.new twitter_message: 'message' }
@@ -53,12 +53,12 @@ module ShareProgress
         hollow_collection.update_variants(basic_variants)
         [v1, v2, v3].each do |v|
           case v.type
-          when 'twitter'
-            expect(v.twitter_message).to eq basic_variants['twitter'][0]['twitter_message']
-          when 'facebook'
-            expect(v.facebook_title).to eq basic_variants['facebook'][0]['facebook_title']
-          when 'email'
-            expect(v.email_body).to eq basic_variants['email'][0]['email_body']
+          when :twitter
+            expect(v.twitter_message).to eq basic_variants[:twitter][0][:twitter_message]
+          when :facebook
+            expect(v.facebook_title).to eq basic_variants[:facebook][0][:facebook_title]
+          when :email
+            expect(v.email_body).to eq basic_variants[:email][0][:email_body]
           else
             expect(['twitter', 'facebook', 'email']).to include v.type  # fail
           end
@@ -90,6 +90,7 @@ module ShareProgress
       it 'can add a TwitterVariant from an attribute hash' do
         empty_variant_collection.add_or_update twitter_hash
         expect(empty_variant_collection.variants[0]).to be_instance_of(TwitterVariant)
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(twitter_hash[:twitter_message])
       end
       it 'can add a EmailVariant from a EmailVariant object' do
         empty_variant_collection.add_or_update email_variant
@@ -98,6 +99,7 @@ module ShareProgress
       it 'can add a EmailVariant from an attribute hash' do
         empty_variant_collection.add_or_update email_hash
         expect(empty_variant_collection.variants[0]).to be_instance_of(EmailVariant)
+        expect(empty_variant_collection.variants[0].email_subject).to eq(email_hash[:email_subject])
       end
       it 'can add a FacebookVariant from a FacebookVariant object' do
         empty_variant_collection.add_or_update facebook_variant
@@ -106,15 +108,61 @@ module ShareProgress
       it 'can add a FacebookVariant from an attribute hash' do
         empty_variant_collection.add_or_update facebook_hash
         expect(empty_variant_collection.variants[0]).to be_instance_of(FacebookVariant)
+        expect(empty_variant_collection.variants[0].facebook_title).to eq(facebook_hash[:facebook_title])
       end
 
       # these should guard against duplication
-      it 'can update an existing TwitterVariant from a TwitterVariant object'
-      it 'can update an existing TwitterVariant from an attribute hash'
-      it 'can update an existing EmailVariant from a EmailVariant object'
-      it 'can update an existing EmailVariant from an attribute hash'
-      it 'can update an existing FacebookVariant from a FacebookVariant object'
-      it 'can update an existing FacebookVariant from an attribute hash'
+      it 'can update an existing TwitterVariant from a TwitterVariant object' do
+        empty_variant_collection.add_or_update twitter_variant
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(twitter_variant.twitter_message)
+        new_message = 'fake message'
+        twitter_variant.twitter_message = new_message
+        empty_variant_collection.add_or_update twitter_variant
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(new_message)
+      end
+      it 'can update an existing TwitterVariant from an attribute hash' do
+        empty_variant_collection.add_or_update twitter_hash
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(twitter_hash[:twitter_message])
+        new_hash = twitter_hash
+        new_message = 'fake message'
+        new_hash[:twitter_message] = new_message
+        empty_variant_collection.add_or_update new_hash
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(new_message)
+      end
+      it 'can update an existing EmailVariant from a EmailVariant object' do
+        empty_variant_collection.add_or_update email_variant
+        expect(empty_variant_collection.variants[0].email_body).to eq(email_variant.email_body)
+        new_message = 'fake message'
+        email_variant.email_body = new_message
+        empty_variant_collection.add_or_update twitter_variant
+        expect(empty_variant_collection.variants[0].email_body).to eq(new_message)
+      end
+      it 'can update an existing EmailVariant from an attribute hash' do
+        empty_variant_collection.add_or_update email_hash
+        expect(empty_variant_collection.variants[0].email_body).to eq(email_hash[:email_body])
+        new_hash = email_hash
+        new_message = 'fake message'
+        new_hash[:email_body] = new_message
+        empty_variant_collection.add_or_update new_hash
+        expect(empty_variant_collection.variants[0].email_body).to eq(new_message)
+      end
+      it 'can update an existing FacebookVariant from a FacebookVariant object' do
+        empty_variant_collection.add_or_update facebook_variant
+        expect(empty_variant_collection.variants[0].facebook_title).to eq(facebook_variant.facebook_title)
+        new_message = 'fake message'
+        facebook_variant.facebook_title = new_message
+        empty_variant_collection.add_or_update facebook_variant
+        expect(empty_variant_collection.variants[0].facebook_title).to eq(new_message)
+      end
+      it 'can update an existing FacebookVariant from an attribute hash' do
+        empty_variant_collection.add_or_update facebook_hash
+        expect(empty_variant_collection.variants[0].facebook_title).to eq(facebook_hash[:facebook_title])
+        new_hash = facebook_hash
+        new_message = 'fake message'
+        new_hash[:facebook_title] = new_message
+        empty_variant_collection.add_or_update new_hash
+        expect(empty_variant_collection.variants[0].facebook_title).to eq(new_message)
+      end
 
     end
 

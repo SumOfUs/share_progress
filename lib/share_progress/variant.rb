@@ -34,10 +34,15 @@ module ShareProgress
     end
 
     def update_attributes(params)
-      Utils.symbolize_keys(params).each_pair do |key, value|
-        @button = value if key == :button
-        next unless all_fields.include? key
-        instance_variable_set("@#{key}", value)
+      if params.is_a? Variant
+        params.instance_variables.each do |key|
+          instance_variable_set(key, params.instance_variable_get(key))
+        end
+      elsif params.is_a? Hash
+        Utils.symbolize_keys(params).each_pair do |key, value|
+          @button = value if key == :button
+          instance_variable_set("@#{key}", value) if all_fields.include? key
+        end
       end
     end
 
