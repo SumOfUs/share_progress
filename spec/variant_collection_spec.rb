@@ -19,6 +19,10 @@ module ShareProgress
     let(:basic_variants) { {'twitter' => [twitter_hash], 'email' => [email_hash], 'facebook' => [facebook_hash]} }
     let(:hollow_variants) { {'twitter' => [empty_twitter_hash], 'email' => [empty_email_hash], 'facebook' => [empty_facebook_hash]} }
     let(:hollow_collection) { VariantCollection.new(basic_variants) }
+    let(:empty_variant_collection) { VariantCollection.new({}) }
+    let(:twitter_variant) { TwitterVariant.new twitter_message: 'message' }
+    let(:email_variant) { EmailVariant.new email_subject: 'Subj', email_body: 'bod'}
+    let(:facebook_variant) { FacebookVariant.new facebook_title: 'title', facebook_description: 'desc', facebook_thumbnail: nil}
 
     describe 'new' do
 
@@ -61,7 +65,7 @@ module ShareProgress
         end
       end
 
-      it 'trims Variants to those invluded in list of Variants'
+      it 'trims Variants to those included in list of Variants'
       it 'trims Variants to those included in hash' do
         original_variants = hollow_collection.variants
         hollow_collection.update_variants({'twitter' => [twitter_hash]})
@@ -69,7 +73,7 @@ module ShareProgress
         expect(original_variants).to include hollow_collection.variants[0]
       end
 
-      it 'can add some while Variants while removing others'
+      it 'can add some Variants while removing others'
       it 'can add many Variants all of one type'
       it 'can add from a list of Variant objects'
 
@@ -79,12 +83,30 @@ module ShareProgress
 
     describe 'add_or_update' do
 
-      it 'can add a TwitterVariant from a TwitterVariant object'
-      it 'can add a TwitterVariant from an attribute hash'
-      it 'can add a EmailVariant from a EmailVariant object'
-      it 'can add a EmailVariant from an attribute hash'
-      it 'can add a FacebookVariant from a FacebookVariant object'
-      it 'can add a FacebookVariant from an attribute hash'
+      it 'can add a TwitterVariant from a TwitterVariant object' do
+        empty_variant_collection.add_or_update twitter_variant
+        expect(empty_variant_collection.variants).to eq([twitter_variant])
+      end
+      it 'can add a TwitterVariant from an attribute hash' do
+        empty_variant_collection.add_or_update twitter_hash
+        expect(empty_variant_collection.variants[0]).to be_instance_of(TwitterVariant)
+      end
+      it 'can add a EmailVariant from a EmailVariant object' do
+        empty_variant_collection.add_or_update email_variant
+        expect(empty_variant_collection.variants).to eq([email_variant])
+      end
+      it 'can add a EmailVariant from an attribute hash' do
+        empty_variant_collection.add_or_update email_hash
+        expect(empty_variant_collection.variants[0]).to be_instance_of(EmailVariant)
+      end
+      it 'can add a FacebookVariant from a FacebookVariant object' do
+        empty_variant_collection.add_or_update facebook_variant
+        expect(empty_variant_collection.variants).to eq([facebook_variant])
+      end
+      it 'can add a FacebookVariant from an attribute hash' do
+        empty_variant_collection.add_or_update facebook_hash
+        expect(empty_variant_collection.variants[0]).to be_instance_of(FacebookVariant)
+      end
 
       # these should guard against duplication
       it 'can update an existing TwitterVariant from a TwitterVariant object'

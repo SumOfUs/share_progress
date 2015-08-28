@@ -33,8 +33,12 @@ module ShareProgress
     def add_or_update(variant)
       variant_obj = find_variant(variant)
       if variant_obj.nil?
-        variant_obj = create_variant(variant)
-        @variants.push(variant_obj)
+        if variant.is_a? Variant
+          @variants.push variant
+        else
+          variant_obj = create_variant(variant)
+          @variants.push(variant_obj)
+        end
       else
         variant_obj.update_attributes(variant)
       end
@@ -61,7 +65,7 @@ module ShareProgress
     # type, so I reckon that we just should make it find by id and most of this logic is unnecessary
     def find_variant(mystery_variant)
       if mystery_variant.is_a? Variant
-        find_variant_by_obj(required)
+        find_variant_by_obj(mystery_variant)
       elsif mystery_variant.is_a? Hash
         variant_hash = Utils.symbolize_keys(mystery_variant)
         if variant_hash.include? :type
@@ -75,7 +79,7 @@ module ShareProgress
 
     def find_variant_by_obj(variant_obj)
       matching = @variants.select{ |candidate| candidate == variant_obj}
-      matching.size > 0 ? matching[0] : find_variant_by_id(variant.id, variant.type)
+      matching.size > 0 ? matching[0] : find_variant_by_id(variant_obj.id, variant_obj.type)
     end
 
     def find_variant_by_id(id, variant_type)
