@@ -75,7 +75,7 @@ module ShareProgress
       params.each_pair do |key, value|
         instance_variable_set("@#{key}", value) unless key == :variants
       end
-      variants = params[:variants] if params.include? :variants
+      self.variants = params[:variants] if params.include? :variants
     end
 
     def save

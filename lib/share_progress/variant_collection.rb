@@ -1,3 +1,6 @@
+require 'share_progress/variant'
+require 'share_progress/variant_parser'
+
 module ShareProgress
   class VariantCollection
 
@@ -18,12 +21,13 @@ module ShareProgress
     end
 
     def serialize
-      serialized = Hash.new
+      serialized = {}
       @variants.each do |variant_obj|
-        type_name = variant.type
+        type_name = variant_obj.type
         serialized[type_name] ||= []
         serialized[type_name].push variant_obj.serialize
       end
+      serialized
     end
 
     def add_or_update(variant)
