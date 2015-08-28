@@ -1,9 +1,9 @@
 module ShareProgress
   class VariantCollection
 
-    def initialize(variant_hash=nil)
+    def initialize(variants_hash=nil)
       @variants = []
-      update_variants(variant_hash) unless variant_hash.nil?
+      update_variants(variants_hash) unless variants_hash.nil?
     end
 
     def update_variants(variants_hash)
