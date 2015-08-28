@@ -33,7 +33,7 @@ describe ShareProgress::Button do
     it { should respond_to :advanced_options }
     it { should respond_to :advanced_options= }
     it { should respond_to :id }
-    it { should_not respond_to :id= }
+    it { should respond_to :id= }
     it { should respond_to :errors }
     it { should_not respond_to :errors= }
 

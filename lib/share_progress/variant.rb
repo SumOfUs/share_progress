@@ -6,6 +6,7 @@ require 'share_progress/button'
 module ShareProgress
   class Variant
     attr_accessor :button, :id
+    attr_reader   :errors
 
     def initialize(params=nil)
       update_attributes(params) unless params.nil?
@@ -16,6 +17,9 @@ module ShareProgress
     end
 
     def save
+      add_error('button', "can't be blank") and return false if @button.nil?
+      add_error('button', "must have an id") and return false if @button.id.nil?
+
       response = Button.update(id: @button.id, variants: {type => [serialize]})
     end
 
@@ -56,6 +60,15 @@ module ShareProgress
         raise AnalyticsNotFound
       end
     end
+
+    private
+
+    def add_error(field, message)
+      @errors ||= {}
+      @errors[field.to_s] ||= []
+      @errors[field.to_s].push(message)
+    end
+
   end
 end
 

@@ -69,26 +69,85 @@ module ShareProgress
       describe 'save' do
 
         describe 'making call' do
-          before :each do
-            expected_submission = { id: variant_obj.button.id, variants: {variant_obj.type => [variant_obj.serialize]} }
-            body_params = HTTParty::HashConversions.to_params(expected_submission)
-            @params = {query: base_params, body: body_params}
-            stub_request(:post, uri).with(@params)
+
+          describe 'with button with id' do
+            before :each do
+              variant_obj.button.id = 12345
+              expected_submission = { id: variant_obj.button.id, variants: {variant_obj.type => [variant_obj.serialize]} }
+              body_params = HTTParty::HashConversions.to_params(expected_submission)
+              @params = {query: base_params, body: body_params}
+              stub_request(:post, uri).with(@params)
+            end
+
+            it 'posts to the button update API URI with the minimum required to update variation' do
+              variant_obj.save
+              expect(WebMock).to have_requested(:post, uri).with(@params)
+            end
+
+            it "does not call the button's save method" do
+              expect(variant_obj.button).not_to receive(:save)
+              variant_obj.save
+            end
+
+            it 'returns true' do
+              pending('get it together')
+              expect(variant_obj.save).to eq true
+            end
           end
 
-          it 'posts to the button update API URI with the minimum required to update variation' do
-            variant_obj.save
-            expect(WebMock).to have_requested(:post, uri).with(@params)
+          describe 'with button without id' do
+
+            before :each do
+              variant_obj.button.id = nil
+            end
+
+            it 'does not call the URI' do
+              variant_obj.save
+              expect(WebMock).not_to have_requested(:post, uri)
+            end
+
+            it "does not call the button's save method" do
+              expect(variant_obj.button).not_to receive(:save)
+              variant_obj.save
+            end
+
+            it 'adds an appropriate error to the variant' do
+              variant_obj.save
+              expect(variant_obj.errors).to eq({'button'=> ["must have an id"]})
+            end
+
+            it 'returns false' do
+              expect(variant_obj.save).to eq false
+            end
           end
 
-          it "does not call the button's save method" do
-            expect(variant_obj.button).not_to receive(:save)
-            variant_obj.save
+          describe 'without button' do
+
+            before :each do
+              variant_obj.button = nil
+            end
+
+            it 'does not call the URI' do
+              variant_obj.save
+              expect(WebMock).not_to have_requested(:post, uri)
+            end
+
+            it 'adds an appropriate error to the variant' do
+              variant_obj.save
+              expect(variant_obj.errors).to eq({'button'=> ["can't be blank"]})
+            end
+
+            it 'returns false' do
+              expect(variant_obj.save).to eq false
+            end
           end
         end
 
+        describe 'receving data' do
+          it 'adds relevant validation errors to the variation'
+        end
+
         it "does not cause any of the button's other variations to save"
-        it 'adds relevant validation errors to the variation'
 
       end
 
