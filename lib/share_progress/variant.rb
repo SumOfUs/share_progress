@@ -6,7 +6,7 @@ require 'share_progress/button'
 module ShareProgress
   class Variant
     attr_accessor :button, :id
-    attr_reader   :errors
+    attr_reader   :errors, :_destroy
 
     def initialize(params=nil)
       update_attributes(params) unless params.nil?
@@ -21,14 +21,24 @@ module ShareProgress
       add_error('button', "must have an id") and return false if @button.id.nil?
       response = Button.update(id: @button.id, variants: {type => [serialize]})
       return false unless response.is_a? Hash
+
       @errors = parse_errors(response['errors'])
       (@errors.size == 0)
+    end
+
+    def destroy
+      add_error('id', "can't be blank") and return false if id.nil?
+      @_destroy = true
+      saved = save
+      @_destroy = nil
+      saved ? self : false
     end
 
     def serialize
       serialized = Hash.new
       all_fields.each do |field|
-        serialized[field] = send(field)
+        value = send(field)
+        serialized[field] = value unless (value.nil? and field == :_destroy)
       end
       serialized
     end
@@ -47,7 +57,7 @@ module ShareProgress
     end
 
     def all_fields
-      self.class.fields + [:id]
+      self.class.fields + [:id, :_destroy]
     end
 
     def type

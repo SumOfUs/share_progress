@@ -47,8 +47,10 @@ module ShareProgress
 
     def remove(variant)
       target = find(variant)
-      @variants.select!{ |v| v != target }
-      target
+      destroyed = target.destroy
+      return false if destroyed == false
+      @variants.select!{ |v| v.id != target.id }
+      destroyed
     end
 
     def variants
