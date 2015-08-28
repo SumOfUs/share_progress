@@ -163,8 +163,9 @@ module ShareProgress
             expect(variant_obj.errors.keys).to match_array fields.map(&:to_s)
           end
 
-          it "returns true on success" do
+          it "returns true and adds no errors on success" do
             expect(variant_obj.save).to eq true
+            expect(variant_obj.errors).to eq Hash.new
           end
         end
 

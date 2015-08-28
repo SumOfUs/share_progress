@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 28 Aug 2015 19:26:40 GMT
+      - Fri, 28 Aug 2015 19:38:24 GMT
       Status:
       - 200 OK
       X-Frame-Options:
@@ -33,17 +33,17 @@ http_interactions:
       X-Ratelimit-Remaining:
       - '29'
       X-Ratelimit-Reset:
-      - '1440790059'
+      - '1440790763'
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - '"fa936d3a3e72b274bb663be38baf2db2"'
+      - '"3a8cd610d58793f5517999c1b3ba6327"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 35d808cd-3a95-43a5-9ee7-a2eac9838aa6
+      - a355411b-91d5-4674-9b33-98ddf9a6ea78
       X-Runtime:
-      - '0.711686'
+      - '1.671110'
       Via:
       - 1.1 vegur
     body:
@@ -71,10 +71,13 @@ http_interactions:
         hush fell upon the forest - TRANQUILITY TURNT UP 100%. And lo, as the dew
         fell and the woodland critters retreated into their burrows, a great hush
         fell upon the forest - TRANQUILITY TURNT UP 100%. "},{"id":64173,"facebook_title":"go
+        bernie","facebook_description":";)","facebook_thumbnail":""},{"id":64176,"facebook_title":"go
         bernie","facebook_description":";)","facebook_thumbnail":""}],"email":[{"id":64166,"email_subject":null,"email_body":null},{"id":64171,"email_subject":"","email_body":"You
         won''t belive this {LINK}"},{"id":64174,"email_subject":"","email_body":"You
+        won''t belive this {LINK}"},{"id":64186,"email_subject":"","email_body":"You
         won''t belive this {LINK}"}],"twitter":[{"id":64168,"twitter_message":null},{"id":64172,"twitter_message":"@bernie2016
+        \u003C3 \u003C3 \u003C3 {LINK}"},{"id":64175,"twitter_message":"@bernie2016
         \u003C3 \u003C3 \u003C3 {LINK}"}]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":null}'
     http_version: 
-  recorded_at: Fri, 28 Aug 2015 19:27:21 GMT
+  recorded_at: Fri, 28 Aug 2015 19:39:06 GMT
 recorded_with: VCR 2.9.3

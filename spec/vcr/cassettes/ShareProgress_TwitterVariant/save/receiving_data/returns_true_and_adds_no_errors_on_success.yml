@@ -5,7 +5,7 @@ http_interactions:
     uri: http://run.shareprogress.org/api/v1/buttons/update?key=<API_KEY>
     body:
       encoding: UTF-8
-      string: id=15543&variants[facebook][][facebook_title]=go%20bernie&variants[facebook][][facebook_description]=%3B)&variants[facebook][][facebook_thumbnail]=&variants[facebook][][id]=
+      string: id=15543&variants[twitter][][twitter_message]=%40bernie2016%20%3C3%20%3C3%20%3C3%20%7BLINK%7D&variants[twitter][][id]=
     headers: {}
   response:
     status:
@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Fri, 28 Aug 2015 19:26:42 GMT
+      - Fri, 28 Aug 2015 19:38:25 GMT
       Status:
       - 200 OK
       X-Frame-Options:
@@ -31,19 +31,19 @@ http_interactions:
       X-Ratelimit-Limit:
       - '30'
       X-Ratelimit-Remaining:
-      - '28'
+      - '29'
       X-Ratelimit-Reset:
-      - '1440790059'
+      - '1440790765'
       Content-Type:
       - application/json; charset=utf-8
       Etag:
-      - '"66589cf0e1f0e4e3a3848b302397c4a6"'
+      - '"4777f46dd9dc52169661270be41a009f"'
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 71b52d51-6487-4b40-9041-31d11176a479
+      - 2d0f9334-fec6-4a92-9208-5d8598149a4a
       X-Runtime:
-      - '0.557659'
+      - '0.536025'
       Via:
       - 1.1 vegur
     body:
@@ -74,9 +74,11 @@ http_interactions:
         bernie","facebook_description":";)","facebook_thumbnail":""},{"id":64176,"facebook_title":"go
         bernie","facebook_description":";)","facebook_thumbnail":""}],"email":[{"id":64166,"email_subject":null,"email_body":null},{"id":64171,"email_subject":"","email_body":"You
         won''t belive this {LINK}"},{"id":64174,"email_subject":"","email_body":"You
+        won''t belive this {LINK}"},{"id":64186,"email_subject":"","email_body":"You
         won''t belive this {LINK}"}],"twitter":[{"id":64168,"twitter_message":null},{"id":64172,"twitter_message":"@bernie2016
         \u003C3 \u003C3 \u003C3 {LINK}"},{"id":64175,"twitter_message":"@bernie2016
+        \u003C3 \u003C3 \u003C3 {LINK}"},{"id":64187,"twitter_message":"@bernie2016
         \u003C3 \u003C3 \u003C3 {LINK}"}]},"advanced_options":{"automatic_traffic_routing":"true","buttons_optimize_actions":null,"customize_params":null,"id_pass":{"id":"id","passed":"referrer_id"}}}],"message":null}'
     http_version: 
-  recorded_at: Fri, 28 Aug 2015 19:27:24 GMT
+  recorded_at: Fri, 28 Aug 2015 19:39:07 GMT
 recorded_with: VCR 2.9.3
