@@ -11,18 +11,14 @@ module ShareProgress
     end
 
     def to_s
-      self.compile_to_hash.to_json
-    end
-
-    def compile_to_hash
-      # override this in variant subclasses
+      self.serialize.to_json
     end
 
     def save
       @button.update
     end
 
-    def compile_to_hash
+    def serialize
       serialized = Hash.new
       all_fields.each do |field|
         serialized[field] = send(field)

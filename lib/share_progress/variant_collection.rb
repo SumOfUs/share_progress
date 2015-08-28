@@ -22,7 +22,7 @@ module ShareProgress
       @variants.each do |variant_obj|
         type_name = variant.type
         serialized[type_name] ||= []
-        serialized[type_name].push variant_obj.compile_to_hash
+        serialized[type_name].push variant_obj.serialize
       end
     end
 
