@@ -3,7 +3,6 @@ require 'share_progress/variant'
 
 module ShareProgress
   class EmailVariant < Variant
-    attr_accessor :email_subject, :email_body
 
     def self.type
       'email'
@@ -12,5 +11,7 @@ module ShareProgress
     def self.fields
       [:email_subject, :email_body]
     end
+
+    attr_accessor *fields
   end
 end

@@ -3,7 +3,6 @@ require 'share_progress/variant'
 
 module ShareProgress
   class TwitterVariant < Variant
-    attr_accessor :twitter_message
 
     def self.type
       'twitter'
@@ -12,5 +11,7 @@ module ShareProgress
     def self.fields
       [:twitter_message]
     end
+
+    attr_accessor *fields
   end
 end

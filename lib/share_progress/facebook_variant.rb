@@ -3,7 +3,6 @@ require 'share_progress/variant'
 
 module ShareProgress
   class FacebookVariant < Variant
-    attr_accessor :facebook_title, :facebook_thumbnail, :facebook_description
 
     def self.type
       'facebook'
@@ -12,5 +11,7 @@ module ShareProgress
     def self.fields
       [:facebook_title, :facebook_description, :facebook_thumbnail]
     end
+
+    attr_accessor *fields
   end
 end
