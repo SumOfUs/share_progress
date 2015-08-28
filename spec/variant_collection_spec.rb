@@ -164,6 +164,17 @@ module ShareProgress
         expect(empty_variant_collection.variants[0].facebook_title).to eq(new_message)
       end
 
+      it 'can work with hashes with symbol keys' do
+        message = 'go team!'
+        empty_variant_collection.add_or_update({twitter_message: message})
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(message)
+      end
+
+      it 'can work with hashes with string keys' do
+        message = 'go team'
+        empty_variant_collection.add_or_update('twitter_message' => message)
+        expect(empty_variant_collection.variants[0].twitter_message).to eq(message)
+      end
     end
 
     describe 'serialize' do
