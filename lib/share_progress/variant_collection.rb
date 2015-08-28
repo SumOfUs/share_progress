@@ -31,7 +31,7 @@ module ShareProgress
     end
 
     def add_or_update(variant)
-      variant_obj = find_variant(variant)
+      variant_obj = find(variant)
       if variant_obj.nil?
         if variant.is_a? Variant
           @variants.push variant
@@ -46,7 +46,7 @@ module ShareProgress
     end
 
     def remove(variant)
-      target = find_variant(variant)
+      target = find(variant)
       @variants.select!{ |v| v != target }
       target
     end
@@ -55,35 +55,29 @@ module ShareProgress
       @variants
     end
 
+    def find(mystery_variant)
+      if mystery_variant.is_a? Variant
+        find_variant_by_obj(mystery_variant)
+      elsif mystery_variant.is_a? Hash
+        find_variant_by_id(Utils.symbolize_keys(mystery_variant)[:id])
+      elsif mystery_variant.is_a? Fixnum
+        find_variant_by_id(mystery_variant)
+      end
+    end
+
     private
 
     def create_variant(variant_hash)
       VariantParser.parse(variant_hash).new(variant_hash)
     end
 
-    # in this implentation, you need id and type, but the ids on SP span
-    # type, so I reckon that we just should make it find by id and most of this logic is unnecessary
-    def find_variant(mystery_variant)
-      if mystery_variant.is_a? Variant
-        find_variant_by_obj(mystery_variant)
-      elsif mystery_variant.is_a? Hash
-        variant_hash = Utils.symbolize_keys(mystery_variant)
-        if variant_hash.include? :type
-          variant_type = variant_hash[:type]
-        else
-          variant_type = VariantParser.parse(variant_hash).type
-        end
-        find_variant_by_id(variant_hash[:id], variant_type)
-      end
-    end
-
     def find_variant_by_obj(variant_obj)
       matching = @variants.select{ |candidate| candidate == variant_obj}
-      matching.size > 0 ? matching[0] : find_variant_by_id(variant_obj.id, variant_obj.type)
+      matching.size > 0 ? matching[0] : find_variant_by_id(variant_obj.id)
     end
 
-    def find_variant_by_id(id, variant_type)
-      matching = @variants.select{ |candidate| candidate.id == id && candidate.type == variant_type}
+    def find_variant_by_id(id)
+      matching = @variants.select{ |candidate| candidate.id == id }
       matching.size > 0 ? matching[0] : nil
     end
 

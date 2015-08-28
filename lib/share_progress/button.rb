@@ -7,7 +7,7 @@ require 'share_progress/variant_collection'
 module ShareProgress
   class Button
 
-    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variants, :advanced_options, :id
+    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variants, :advanced_options, :include, :id
     attr_reader   :errors
 
     class << self
