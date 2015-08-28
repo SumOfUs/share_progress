@@ -107,13 +107,13 @@ module ShareProgress
 
     describe 'remove' do
 
-      # in my implentation, you need id and type, but the ids on SP span
-      # type, so I reckon that we just should make it find by id
       it 'removes a variant referenced by a hash with just id'
       it 'removes two variants with the same id'
 
       it 'removes a variant referenced by the variant object'
       it 'does not remove anything when passed a different variant with the same id'
+
+      it 'makes the call to the API URI with _destroy true'
     end
   end
 end

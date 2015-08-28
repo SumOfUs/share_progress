@@ -53,6 +53,8 @@ module ShareProgress
       VariantParser.parse(variant_hash).new(variant_hash)
     end
 
+    # in this implentation, you need id and type, but the ids on SP span
+    # type, so I reckon that we just should make it find by id and most of this logic is unnecessary
     def find_variant(mystery_variant)
       if mystery_variant.is_a? Variant
         find_variant_by_obj(required)
