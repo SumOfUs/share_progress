@@ -143,14 +143,24 @@ module ShareProgress
 
         describe 'receiving data', :vcr do
 
+          let(:too_long) { "And lo, as the dew fell and the woodland critters retreated into their burrows, a great hush fell upon the forest - TRANQUILITY TURNT UP 100%. " * 10 }
+
           variant_class.fields.each do |field|
             next if field == :facebook_thumbnail # only field without a character limit
             it "adds validation errors for #{field}" do
-              too_long = "And lo, as the dew fell and the woodland critters retreated into their burrows, a great hush fell upon the forest - TRANQUILITY TURNT UP 100%. " * 10
               variant_obj.send("#{field}=", too_long)
               expect(variant_obj.save).to eq false
               expect(variant_obj.errors.keys).to eq [field.to_s]
             end
+          end
+
+          it "adds validation errors for all fields" do
+            fields = variant_class.fields.select{|f| f != :facebook_thumbnail}
+            fields.each do |field|
+              variant_obj.send("#{field}=", too_long)
+            end
+            expect(variant_obj.save).to eq false
+            expect(variant_obj.errors.keys).to match_array fields.map(&:to_s)
           end
 
           it "returns true on success" do
