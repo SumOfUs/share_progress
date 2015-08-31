@@ -169,35 +169,6 @@ module ShareProgress
           end
         end
 
-        it "updates its id to match the server id" do
-
-          pending("there's a fundamental problem with matching up the ids, I wrote it up in an issue")
-
-          expect(variant_obj.id).to eq nil
-          expect(variant_obj.save).to eq true
-          expect(variant_obj.id).not_to eq nil
-          expect(variant_obj.id).to be > 0
-        end
-
-        it "does not cause any of the button's other variants to save" do
-
-          pending("there's a fundamental problem with matching up the ids, I wrote it up in an issue")
-
-          other_variant_obj = EmailVariant.new(email_values.merge(button: button))
-          expect(other_variant_obj.save).to eq true
-          expect(variant_obj.button).to eq other_variant_obj.button
-
-          old_body = other_variant_obj.email_body
-          other_variant_obj.email_body = "Galactic cactus"
-
-          expect(variant_obj.save).to eq true
-          server_button = Button.find(button.id)
-          expect(server_button.find_variant(other_variant_obj.id).email_body).to eq old_body
-          expect(other_variant_obj.email_body).to eq "Galactic cactus"
-        end
-
-        it "does not cause the button to save"
-
       end
 
       describe 'destroy' do
