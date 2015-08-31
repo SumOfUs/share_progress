@@ -21,8 +21,11 @@ module ShareProgress
       let(:limited_fields) { { 'twitter' => 'twitter_message', 'facebook' => 'facebook_title', 'email' => 'email_subject' } }
       let(:email_values) { { "email_subject" => nil, "email_body" => "You won't belive this {LINK}" } }
       let(:twitter_values) { { "twitter_message" => "@bernie2016 <3 <3 <3 {LINK}" } }
-      let(:facebook_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)" } }
+      let(:facebook_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)", "facebook_thumbnail" => nil } }
       let(:all_values) { {'facebook' => facebook_values, 'email' => email_values, 'twitter' => twitter_values } }
+      let(:nil_facebook) { {facebook_title: nil, facebook_description: nil, facebook_thumbnail: nil, id: nil} }
+      let(:nil_twitter) { {twitter_message: nil, id: nil} }
+      let(:nil_email) { {email_subject: nil, email_body: nil, id: nil} }
 
       let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
       let(:button_template) { "sp_fb_large" }
@@ -56,15 +59,29 @@ module ShareProgress
       describe 'serialize' do
 
         describe 'without values set' do
-          it 'includes id and each key in fields, and nothing else'
-          it 'does not include button'
-          it 'has nil for each value'
+          it 'includes nil for id and each key in fields, and nothing else' do
+            mapper = {
+                'facebook' => nil_facebook,
+                'twitter' => nil_twitter,
+                'email' => nil_email
+            }
+            obj = variant_class.new
+            expect(obj.serialize).to eq(mapper[variant_class.type])
+          end
         end
 
         describe 'with values set' do
-          it 'includes id and each key in fields, and nothing else'
-          it 'does not include button'
-          it 'has the correct value for each value'
+          it 'includes correct id and correct value for each key in fields, and nothing else' do
+            mapper = {
+                'facebook' => facebook_values,
+                'twitter' => twitter_values,
+                'email' => email_values
+            }
+            values = Utils.symbolize_keys(mapper[variant_class.type])
+            values = values.merge(id: 1)
+            obj = variant_class.new values
+            expect(obj.serialize).to eq(Utils.symbolize_keys(values))
+          end
         end
 
       end
