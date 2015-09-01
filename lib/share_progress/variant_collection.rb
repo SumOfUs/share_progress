@@ -35,6 +35,7 @@ module ShareProgress
       if variant_obj.nil?
         if variant.is_a? Variant
           @variants.push variant
+          variant_obj = variant
         else
           variant_obj = create_variant(variant)
           @variants.push(variant_obj)
@@ -75,7 +76,13 @@ module ShareProgress
 
     def find_variant_by_obj(variant_obj)
       matching = @variants.select{ |candidate| candidate == variant_obj}
-      matching.size > 0 ? matching[0] : find_variant_by_id(variant_obj.id)
+      if matching.size > 0
+        matching[0]
+      elsif variant_obj.id
+        find_variant_by_id(variant_obj.id)
+      else
+        nil
+      end
     end
 
     def find_variant_by_id(id)
