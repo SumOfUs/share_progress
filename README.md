@@ -28,6 +28,8 @@ Before beginning, the application will expect that your environment defines an E
 
 To create or update your button and its variants, simply call `button.save`, which will marshal all your changes and submit them to the API. If the request is successful, `save` will return `true`, while errors will cause the method to return `false` and `button.errors` will contain the relevant errors on the save attempt.
 
+**Note**: The API currently includes options for `destroy` on variants, which will, when complete, allow you to remove a variant from a button after that button has been saved. This is currently an experimental feature. It is not tested and unlikely to work reliably, if at all. These features should not be used in production.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
