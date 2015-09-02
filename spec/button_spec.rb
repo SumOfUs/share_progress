@@ -11,6 +11,7 @@ describe ShareProgress::Button do
   let(:id) { 15246 }
   let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
   let(:button_template) { "sp_fb_large" }
+  let(:auto_variants) { {"facebook" => [{"id" => 62899,"facebook_title" => nil,"facebook_description" => nil,"facebook_thumbnail" => nil}],"email" => [{"id" => 62898,"email_subject" => nil,"email_body" => nil}],"twitter" => [{"id" => 62897,"twitter_message" => nil}]} }
   let(:minimum_properties) { {page_url: page_url, button_template: button_template} }
   let(:full_properties) { {page_title: "What Fast Track Means", share_button_html: "\u003Cdiv class=''sp_15405 sp_fb_large'' \u003E\u003C/div\u003E", is_active: false}.merge(minimum_properties) }
   let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
@@ -29,12 +30,12 @@ describe ShareProgress::Button do
     it { should respond_to :share_button_html= }
     it { should respond_to :is_active }
     it { should respond_to :is_active= }
-    it { should respond_to :variations }
-    it { should respond_to :variations= }
+    it { should respond_to :variants }
+    it { should respond_to :variants= }
     it { should respond_to :advanced_options }
     it { should respond_to :advanced_options= }
     it { should respond_to :id }
-    it { should_not respond_to :id= }
+    it { should respond_to :id= }
     it { should respond_to :errors }
     it { should_not respond_to :errors= }
 
@@ -82,6 +83,22 @@ describe ShareProgress::Button do
             expect{ basic_button.fake_key }.to raise_error NoMethodError
           end
         end
+      end
+
+      describe 'with variants' do
+
+        it "updates existing Variants when given a list of hashes" do
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variants[:facebook].size).to eq 1
+          expect(basic_button.variants[:twitter].size).to eq 1
+          expect(basic_button.variants[:email].size).to eq 1
+
+          basic_button.update_attributes({variants: auto_variants})
+          expect(basic_button.variants[:facebook].size).to eq 1
+          expect(basic_button.variants[:twitter].size).to eq 1
+          expect(basic_button.variants[:email].size).to eq 1
+        end
+
       end
     end
 

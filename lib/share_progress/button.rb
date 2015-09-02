@@ -2,12 +2,13 @@ require 'share_progress'
 require 'share_progress/client'
 require 'share_progress/utils'
 require 'share_progress/errors'
+require 'share_progress/variant_collection'
 
 module ShareProgress
   class Button
 
-    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variations, :advanced_options
-    attr_reader   :id, :errors
+    attr_accessor :page_url, :page_title, :button_template, :share_button_html, :is_active, :auto_fill, :variants, :advanced_options, :include, :id
+    attr_reader   :errors
 
     class << self
 
@@ -57,7 +58,7 @@ module ShareProgress
       end
 
       def optional_keys
-        [:id, :page_title, :auto_fill, :variations, :advanced_options, :share_button_html, :is_active, :errors]
+        [:id, :page_title, :auto_fill, :variants, :advanced_options, :share_button_html, :is_active, :errors]
       end
 
       def advanced_options_keys
@@ -66,19 +67,42 @@ module ShareProgress
     end
 
     def initialize(params)
+      @variant_collection = VariantCollection.new
       update_attributes(params)
     end
 
     def update_attributes(params)
+      params = Utils.symbolize_keys(params)
       params.each_pair do |key, value|
-        instance_variable_set("@#{key}", value)
+        instance_variable_set("@#{key}", value) unless key == :variants
       end
+      self.variants = params[:variants] if params.include? :variants
     end
 
     def save
       result = self.class.update(serialize)
       update_attributes(result)
       (errors.size == 0)
+    end
+
+    def variants=(variants)
+      @variant_collection.update_variants(variants)
+    end
+
+    def variants
+      @variant_collection.serialize
+    end
+
+    def add_or_update_variant(variant)
+      @variant_collection.add_or_update(variant)
+    end
+
+    def remove_variant(variant)
+      @variant_collection.remove(variant)
+    end
+
+    def find_variant(variant)
+      @variant_collection.find(variant)
     end
 
     def destroy
