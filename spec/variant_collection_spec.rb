@@ -46,7 +46,23 @@ module ShareProgress
         end
       end
 
-      it 'leaves the same Variant instances in use after updating their properties with a list of Variants'
+      it 'leaves the same Variant instances in use after updating their properties with a list of Variants' do
+        expect(hollow_collection.variants.size).to eq 3
+        v1, v2, v3 = hollow_collection.variants
+        hollow_collection.update_variants(variant_object_list)
+        [v1, v2, v3].each do |v|
+          case v.type
+            when :twitter
+              expect(v.twitter_message).to eq variant_object_list[:twitter][0].twitter_message
+            when :facebook
+              expect(v.facebook_title).to eq variant_object_list[:facebook][0].facebook_title
+            when :email
+              expect(v.email_body).to eq variant_object_list[:email][0].email_body
+            else
+              expect(['twitter', 'facebook', 'email']).to include v.type # fail
+          end
+        end
+      end
       it 'leaves the same Variant instances in use after updating their properties with a hash' do
         expect(hollow_collection.variants.size).to eq 3
         v1, v2, v3 = hollow_collection.variants
@@ -226,10 +242,6 @@ module ShareProgress
         expect(hollow_collection.variants[0].twitter_message).to eq(new_message)
       end
 
-    end
-
-    describe 'remove' do
-      it 'makes the call to the API URI with _destroy true'
     end
   end
 end
