@@ -82,7 +82,6 @@ module ShareProgress
     def save
       result = self.class.update(serialize)
       update_attributes(result)
-      (errors.size == 0)
     end
 
     def variants=(variants)

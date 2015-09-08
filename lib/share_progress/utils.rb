@@ -1,7 +1,7 @@
 require 'httparty'
 
 module ShareProgress
-  class Utils    
+  class Utils
     class << self
 
       def filter_keys(params, acceptable)
