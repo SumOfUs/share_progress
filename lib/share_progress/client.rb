@@ -20,6 +20,9 @@ module ShareProgress
       private
 
       def format_response(http_response)
+        if http_response.code != 200 && http_response.code != 404
+          raise ApiError.new("Status #{http_response.code}: #{http_response['message']}")
+        end
         formatted = http_response['response'].nil? ? [] : http_response['response']
         errors = http_response['success'] ? {} : http_response['message']
         formatted.each { |r| r['errors'] = errors }
