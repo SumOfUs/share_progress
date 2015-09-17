@@ -1,11 +1,11 @@
 ---
 http_interactions:
 - request:
-    method: post
-    uri: http://run.shareprogress.org/api/v1/buttons/update?key=wrong
+    method: get
+    uri: http://run.shareprogress.org/api/v1/buttons/read?id=15887&key=wrong
     body:
-      encoding: UTF-8
-      string: page_url=http%3A%2F%2Fact.sumofus.org%2Fsign%2FWhat_Fast_Track_Means_infographic%2F&button_template=sp_fb_large
+      encoding: US-ASCII
+      string: ''
     headers: {}
   response:
     status:
@@ -17,7 +17,7 @@ http_interactions:
       Connection:
       - close
       Date:
-      - Thu, 17 Sep 2015 00:40:02 GMT
+      - Thu, 17 Sep 2015 00:45:20 GMT
       Status:
       - 500 Internal Server Error
       X-Frame-Options:
@@ -33,14 +33,14 @@ http_interactions:
       Cache-Control:
       - no-cache
       X-Request-Id:
-      - ae6712d2-7b5a-4abe-8a3c-58168052615d
+      - e759d744-f0f2-4ae2-b18b-47d6ce9cdaa6
       X-Runtime:
-      - '0.008140'
+      - '0.005747'
       Via:
       - 1.1 vegur
     body:
       encoding: UTF-8
       string: '{"success":false,"message":"Bad API Key","response":[]}'
     http_version: 
-  recorded_at: Thu, 17 Sep 2015 00:41:26 GMT
+  recorded_at: Thu, 17 Sep 2015 00:46:44 GMT
 recorded_with: VCR 2.9.3
