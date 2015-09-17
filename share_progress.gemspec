@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'vcr'
 
   # Runtime Dependencies
-  spec.add_runtime_dependency 'httparty'
+  spec.add_runtime_dependency 'httparty', '>= 0.13'
 end
