@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
 
   # Runtime Dependencies
   spec.add_runtime_dependency 'httparty', '>= 0.13'
+  spec.add_runtime_dependency 'configurations', '~> 2.2.0'
 end
