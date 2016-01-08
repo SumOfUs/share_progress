@@ -5,8 +5,8 @@ module ShareProgress
     include HTTParty
     debug_output $stdout if ENV['SHARE_PROGRESS_LOG_REQUESTS']
 
-    base_uri ENV['SHARE_PROGRESS_URI'] || 'run.shareprogress.org/api/v1'
-    default_params key: ENV['SHARE_PROGRESS_API_KEY']
+    base_uri ShareProgress.configuration.share_progress_uri
+    default_params key: ShareProgress.configuration.share_progress_api_key
 
     class << self
 
