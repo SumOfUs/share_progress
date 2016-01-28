@@ -19,7 +19,12 @@ module ShareProgress
     def save
       add_error('button', "can't be blank") and return false if @button.nil?
       add_error('button', "must have an id") and return false if @button.id.nil?
-      response = Button.update(id: @button.id, variants: {type => [serialize]})
+      response = Button.update(
+          id: @button.id,
+          button_template: @button.button_template,
+          page_url: @button.page_url,
+          variants: {type => [serialize]}
+      )
       return false unless response.is_a? Hash
 
       @errors = parse_errors(response['errors'])
