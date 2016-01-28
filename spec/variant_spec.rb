@@ -30,7 +30,7 @@ module ShareProgress
 
       let(:page_url) { "http://act.sumofus.org/sign/What_Fast_Track_Means_infographic/" }
       let(:button_template) { "sp_fb_large" }
-      let(:button) { Button.new(page_url: page_url, button_template: button_template, id: 15543) }
+      let(:button) { Button.new(page_url: page_url, button_template: button_template, id: 152) }
       let(:values) { all_values[variant_class.type].merge(button: button) }
       let(:variant_obj) { variant_class.new(values) }
 
@@ -91,16 +91,21 @@ module ShareProgress
 
         describe 'making call' do
 
-          describe 'with button with id' do
+          describe 'with button with required parameters' do
             before :each do
               variant_obj.button.id = 12345
-              expected_submission = { id: variant_obj.button.id, variants: {variant_obj.type => [variant_obj.serialize]} }
+              expected_submission = {
+                  id: variant_obj.button.id,
+                  button_template: variant_obj.button.button_template,
+                  page_url: variant_obj.button.page_url,
+                  variants: {variant_obj.type => [variant_obj.serialize]}
+              }
               body_params = HTTParty::HashConversions.to_params(expected_submission)
               @params = {query: base_params, body: body_params}
               stub_request(:post, uri).with(@params)
             end
 
-            it 'posts to the button update API URI with the minimum required to update variation' do
+            it 'posts to the button update API URI with the required parameters to update variation' do
               variant_obj.save
               expect(WebMock).to have_requested(:post, uri).with(@params)
             end
@@ -207,6 +212,7 @@ module ShareProgress
           it 'returns the variant object if it was succesfully destroyed' do
             result = variant_obj.destroy
             expect(result).to eq(variant_obj)
+            expect(result.errors.empty?).to be true
           end
 
         end
