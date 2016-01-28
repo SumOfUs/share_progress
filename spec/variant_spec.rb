@@ -191,13 +191,36 @@ module ShareProgress
 
       describe 'destroy' do
 
-        before do
-          allow(Button).to receive(:update) {}
+        context 'succesfully destroying a variant', :vcr do
+
+          describe 'update button' do
+            before do
+              allow(Button).to receive(:update) {}
+            end
+
+            it 'calls Button.update when a variant object is destroyed' do
+              variant_obj.destroy
+              expect(Button).to have_received(:update)
+            end
+          end
+
+          it 'returns the variant object if it was succesfully destroyed' do
+            result = variant_obj.destroy
+            expect(result).to eq(variant_obj)
+          end
+
         end
 
-        it 'succesfully deletes the variant object' do
-            variant_obj.destroy
-            expect(Button).to have_received(:update)
+        context 'failing to destroy a variant' do
+          before do
+            variant_obj.id = nil
+          end
+
+          it 'returns false if variant could not be destroyed' do
+            result = variant_obj.destroy
+            expect(result).to eq(false)
+          end
+
         end
       end
 
