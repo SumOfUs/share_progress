@@ -8,6 +8,7 @@ require 'spec_helper'
 require 'webmock/rspec'
 require 'share_progress'
 require 'httparty'
+require 'byebug'
 
 module ShareProgress
 
@@ -19,9 +20,9 @@ module ShareProgress
       let(:uri) { base_uri + '/buttons/update' }
 
       let(:limited_fields) { { 'twitter' => 'twitter_message', 'facebook' => 'facebook_title', 'email' => 'email_subject' } }
-      let(:email_values) { { "email_subject" => nil, "email_body" => "You won't belive this {LINK}" } }
-      let(:twitter_values) { { "twitter_message" => "@bernie2016 <3 <3 <3 {LINK}" } }
-      let(:facebook_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)", "facebook_thumbnail" => nil } }
+      let(:email_values) { { "email_subject" => nil, "email_body" => "You won't belive this {LINK}", "id" => 1 } }
+      let(:twitter_values) { { "twitter_message" => "@bernie2016 <3 <3 <3 {LINK}", "id" => 2 } }
+      let(:facebook_values) { { "facebook_title" => "go bernie", "facebook_description" => ";)", "facebook_thumbnail" => nil, "id" => 3 } }
       let(:all_values) { {'facebook' => facebook_values, 'email' => email_values, 'twitter' => twitter_values } }
       let(:nil_facebook) { {facebook_title: nil, facebook_description: nil, facebook_thumbnail: nil, id: nil} }
       let(:nil_twitter) { {twitter_message: nil, id: nil} }
@@ -189,6 +190,15 @@ module ShareProgress
       end
 
       describe 'destroy' do
+
+        before do
+          allow(Button).to receive(:update) {}
+        end
+
+        it 'succesfully deletes the variant object' do
+            variant_obj.destroy
+            expect(Button).to have_received(:update)
+        end
       end
 
       describe 'update_attributes' do
