@@ -15,7 +15,7 @@ module ShareProgress
     attr_accessor :share_progress_uri, :share_progress_api_key
 
     def initialize
-      @share_progress_uri = ENV['SHARE_PROGRESS_URI'] || 'run.shareprogress.org/api/v1'
+      @share_progress_uri = 'https://run.shareprogress.org/api/v1'
       @share_progress_api_key = ENV['SHARE_PROGRESS_API_KEY'] || 'please_set_an_api_key'
     end
   end
