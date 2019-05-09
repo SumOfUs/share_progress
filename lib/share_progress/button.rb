@@ -21,7 +21,7 @@ module ShareProgress
       def update(options={})
         Utils.filter_keys(options, allowed_keys)
         Utils.filter_keys(options[:advanced_options], advanced_options_keys)
-        created = Client.post endpoint('update'), { body: options }
+        created = Client.post endpoint('update'), { body: options.to_json }
         created[0] # the API returns a list of length 1
       end
 
@@ -32,7 +32,7 @@ module ShareProgress
       end
 
       def destroy(id)
-        deleted = Client.post endpoint('delete'), { query: { id: id } }
+        deleted = Client.post endpoint('delete'), { body: { id: id }.to_json }
         (deleted.size > 0)
       end
 
