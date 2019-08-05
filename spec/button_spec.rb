@@ -16,7 +16,7 @@ describe ShareProgress::Button do
   let(:full_properties) { {page_title: "What Fast Track Means", share_button_html: "\u003Cdiv class=''sp_15405 sp_fb_large'' \u003E\u003C/div\u003E", is_active: false}.merge(minimum_properties) }
   let(:base_fields) { [:page_url, :page_title, :button_template, :share_button_html, :is_active, :errors] }
 
-  describe 'instance methods' do
+   describe 'instance methods' do
     let(:basic_button) { ShareProgress::Button.new({}) }
     subject { basic_button }
 
@@ -50,7 +50,7 @@ describe ShareProgress::Button do
 
         describe "with #{type == :to_s ? 'string' : 'symbol'} keys" do
 
-          describe 'can update all base attributes' do
+           describe 'can update all base attributes' do
 
             before :each do
               base_fields.each { |field| targets[field.send(type)] = field.to_s }
@@ -82,8 +82,15 @@ describe ShareProgress::Button do
             basic_button.update_attributes({'fake_key'.send(type) => 12345})
             expect{ basic_button.fake_key }.to raise_error NoMethodError
           end
+
+          it 'should raise exception' do
+            rec = ShareProgress::Button.new({})
+            expect{
+              rec.update_attributes(nil)
+            }.to raise_error(ShareProgress::RecordNotFound)
+          end
         end
-      end
+     end
 
       describe 'with variants' do
 
@@ -365,7 +372,6 @@ describe ShareProgress::Button do
       end
 
       describe 'receiving data', :vcr do
-
         it "returns false deleting a button that doesn't exist" do
           expect( ShareProgress::Button.destroy(99999) ).to eq false
         end
@@ -373,8 +379,7 @@ describe ShareProgress::Button do
         it 'returns true deleting a button that does exist' do
           expect( ShareProgress::Button.destroy(15405) ).to eq true
         end
-
       end
-    end
+     end
   end
 end
