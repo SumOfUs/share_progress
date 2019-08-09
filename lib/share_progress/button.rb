@@ -87,7 +87,7 @@ module ShareProgress
 
     def save
       result = self.class.update(serialize)
-      update_attributes(result)
+      update_attributes(result) if result.present?
       (errors.size == 0)
     end
 
