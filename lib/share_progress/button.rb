@@ -78,16 +78,19 @@ module ShareProgress
     def update_attributes(params)
       raise ShareProgress::RecordNotFound unless params.is_a?(Hash)
 
-      params = Utils.symbolize_keys(params)
-      params.each_pair do |key, value|
-        instance_variable_set("@#{key}", value) unless key == :variants
+      params = Utils.symbolize_keys(params) rescue nil
+      if params.present?
+        params.each_pair do |key, value|
+          instance_variable_set("@#{key}", value) unless key == :variants
+        end
       end
+
       self.variants = params[:variants] if params.include? :variants
     end
 
     def save
       result = self.class.update(serialize)
-      update_attributes(result)
+      update_attributes(result) if result.present?
       (errors.size == 0)
     end
 
