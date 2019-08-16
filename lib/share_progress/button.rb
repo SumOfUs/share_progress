@@ -72,6 +72,7 @@ module ShareProgress
 
     def initialize(params)
       @variant_collection = VariantCollection.new
+      @errors = []
       update_attributes(params)
     end
 
@@ -79,6 +80,7 @@ module ShareProgress
       raise ShareProgress::RecordNotFound unless params.is_a?(Hash)
 
       params = Utils.symbolize_keys(params) rescue nil
+
       if params.present?
         params.each_pair do |key, value|
           instance_variable_set("@#{key}", value) unless key == :variants
