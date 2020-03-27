@@ -29,7 +29,7 @@ module ShareProgress
 
       def find(id)
         matches = Client.get endpoint('read'), { query: { id: id } }
-        raise RecordNotFound.new("No button exists with id #{id}") if matches.size < 1
+        raise RecordNotFound.new("No button exists with id #{id}") if matches.to_a.empty?
         new(matches[0])
       end
 
@@ -37,7 +37,7 @@ module ShareProgress
         deleted = Client.post endpoint('delete'),
           body: { id: id }.to_json,
           headers: { 'content-type': 'application/json' }
-        (deleted.size > 0)
+        deleted.to_a.present?
       end
 
       def all(limit: 100, offset: 0)
@@ -93,7 +93,7 @@ module ShareProgress
     def save
       result = self.class.update(serialize)
       update_attributes(result) if result.present?
-      (errors.size == 0)
+      errors.to_a.empty?
     end
 
     def variants=(variants)
@@ -130,6 +130,5 @@ module ShareProgress
       end
       serialized
     end
-
   end
 end
